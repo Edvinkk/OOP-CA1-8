@@ -33,10 +33,18 @@ public class RaffleGUI extends javax.swing.JFrame {
         donationBtn = new javax.swing.JButton();
         pollBtn = new javax.swing.JButton();
         iconLbl = new javax.swing.JLabel();
+        entryLbl = new javax.swing.JLabel();
+        entryTf = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        historyTa = new javax.swing.JTextArea();
+        historyLbl = new javax.swing.JLabel();
+        addBtn = new javax.swing.JButton();
+        titleLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(650, 500));
 
         jPanel2.setBackground(new java.awt.Color(0, 51, 51));
         jPanel2.setForeground(new java.awt.Color(153, 255, 102));
@@ -100,7 +108,7 @@ public class RaffleGUI extends javax.swing.JFrame {
                 .addComponent(raffleLbl)
                 .addGap(18, 18, 18)
                 .addComponent(iconLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(charityBtn)
                 .addGap(54, 54, 54)
                 .addComponent(donationBtn)
@@ -109,17 +117,81 @@ public class RaffleGUI extends javax.swing.JFrame {
                 .addGap(59, 59, 59))
         );
 
+        entryLbl.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        entryLbl.setForeground(new java.awt.Color(0, 255, 102));
+        entryLbl.setText("Enter Number Entry:");
+
+        historyTa.setColumns(20);
+        historyTa.setRows(5);
+        jScrollPane1.setViewportView(historyTa);
+
+        historyLbl.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        historyLbl.setForeground(new java.awt.Color(0, 255, 102));
+        historyLbl.setText("Raffle History");
+
+        addBtn.setBackground(new java.awt.Color(0, 51, 51));
+        addBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        addBtn.setForeground(new java.awt.Color(0, 255, 102));
+        addBtn.setText("Add");
+
+        titleLbl.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        titleLbl.setForeground(new java.awt.Color(0, 255, 102));
+        titleLbl.setText("Welcome to Raffle!");
+        titleLbl.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                titleLblFocusGained(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 446, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addBtn)
+                        .addGap(133, 133, 133))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(180, 180, 180)
+                                .addComponent(historyLbl))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(34, 34, 34)
+                                .addComponent(titleLbl)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(entryLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(entryTf, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(77, 77, 77)
+                                .addComponent(jScrollPane1)))
+                        .addGap(71, 71, 71))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(titleLbl)
+                .addGap(75, 75, 75)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(entryLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(entryTf, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(addBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(historyLbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -132,9 +204,7 @@ public class RaffleGUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -160,6 +230,10 @@ public class RaffleGUI extends javax.swing.JFrame {
         myGUI.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pollBtnActionPerformed
+
+    private void titleLblFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_titleLblFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_titleLblFocusGained
 
     /**
      * @param args the command line arguments
@@ -198,12 +272,19 @@ public class RaffleGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addBtn;
     private javax.swing.JButton charityBtn;
     private javax.swing.JButton donationBtn;
+    private javax.swing.JLabel entryLbl;
+    private javax.swing.JTextField entryTf;
+    private javax.swing.JLabel historyLbl;
+    private javax.swing.JTextArea historyTa;
     private javax.swing.JLabel iconLbl;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton pollBtn;
     private javax.swing.JLabel raffleLbl;
+    private javax.swing.JLabel titleLbl;
     // End of variables declaration//GEN-END:variables
 }
