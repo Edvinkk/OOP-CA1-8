@@ -26,26 +26,30 @@ public class PollGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        pollsLbl = new javax.swing.JLabel();
+        background = new javax.swing.JPanel();
+        buttonBckGnd = new javax.swing.JPanel();
+        titleLbl = new javax.swing.JLabel();
+        logoLbl = new javax.swing.JLabel();
         homeBtn = new javax.swing.JButton();
-        donationBtn = new javax.swing.JButton();
-        pollBtn = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        donateBtn = new javax.swing.JButton();
+        raffleBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 204, 255));
 
-        jPanel1.setBackground(new java.awt.Color(0, 51, 51));
+        background.setBackground(new java.awt.Color(51, 153, 255));
 
-        pollsLbl.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        pollsLbl.setForeground(new java.awt.Color(0, 255, 102));
-        pollsLbl.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        pollsLbl.setText("Polls");
+        buttonBckGnd.setBackground(new java.awt.Color(0, 51, 51));
+        buttonBckGnd.setPreferredSize(new java.awt.Dimension(190, 500));
 
-        homeBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        homeBtn.setForeground(new java.awt.Color(0, 255, 102));
+        titleLbl.setBackground(new java.awt.Color(0, 255, 102));
+        titleLbl.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        titleLbl.setForeground(new java.awt.Color(0, 255, 102));
+        titleLbl.setText("Polls");
+
+        logoLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/charityapp/poll.png"))); // NOI18N
+
+        homeBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         homeBtn.setText("Home");
         homeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -53,114 +57,102 @@ public class PollGUI extends javax.swing.JFrame {
             }
         });
 
-        donationBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        donationBtn.setForeground(new java.awt.Color(0, 255, 102));
-        donationBtn.setText("Donation");
-        donationBtn.addActionListener(new java.awt.event.ActionListener() {
+        donateBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        donateBtn.setText("Donate");
+        donateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                donationBtnActionPerformed(evt);
+                donateBtnActionPerformed(evt);
             }
         });
 
-        pollBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        pollBtn.setForeground(new java.awt.Color(0, 255, 102));
-        pollBtn.setText("Raffle");
-        pollBtn.addActionListener(new java.awt.event.ActionListener() {
+        raffleBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        raffleBtn.setText("Raffle");
+        raffleBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pollBtnActionPerformed(evt);
+                raffleBtnActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(377, 377, 377)
-                        .addComponent(pollsLbl))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(278, 278, 278)
-                        .addComponent(homeBtn)
-                        .addGap(18, 18, 18)
-                        .addComponent(donationBtn)
-                        .addGap(18, 18, 18)
-                        .addComponent(pollBtn)))
-                .addContainerGap(318, Short.MAX_VALUE))
+        javax.swing.GroupLayout buttonBckGndLayout = new javax.swing.GroupLayout(buttonBckGnd);
+        buttonBckGnd.setLayout(buttonBckGndLayout);
+        buttonBckGndLayout.setHorizontalGroup(
+            buttonBckGndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buttonBckGndLayout.createSequentialGroup()
+                .addGroup(buttonBckGndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(buttonBckGndLayout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(titleLbl))
+                    .addGroup(buttonBckGndLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(logoLbl))
+                    .addGroup(buttonBckGndLayout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addGroup(buttonBckGndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(donateBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(homeBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(raffleBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pollsLbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(donationBtn)
-                    .addComponent(pollBtn)
-                    .addComponent(homeBtn))
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-
-        jPanel2.setBackground(new java.awt.Color(51, 204, 255));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/charityapp/poll.png"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        buttonBckGndLayout.setVerticalGroup(
+            buttonBckGndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buttonBckGndLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(titleLbl)
+                .addGap(18, 18, 18)
+                .addComponent(logoLbl)
                 .addGap(53, 53, 53)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(homeBtn)
+                .addGap(41, 41, 41)
+                .addComponent(donateBtn)
+                .addGap(38, 38, 38)
+                .addComponent(raffleBtn)
+                .addContainerGap(66, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(jLabel1)
-                .addContainerGap(355, Short.MAX_VALUE))
+
+        javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
+        background.setLayout(backgroundLayout);
+        backgroundLayout.setHorizontalGroup(
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(backgroundLayout.createSequentialGroup()
+                .addComponent(buttonBckGnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 460, Short.MAX_VALUE))
+        );
+        backgroundLayout.setVerticalGroup(
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(buttonBckGnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
-        // TODO add your handling code here:
         CharityGUI myGUI = new CharityGUI();
         myGUI.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_homeBtnActionPerformed
 
-    private void donationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_donationBtnActionPerformed
-        // TODO add your handling code here:
+    private void donateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_donateBtnActionPerformed
         DonationGUI myGUI = new DonationGUI();
         myGUI.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_donationBtnActionPerformed
+    }//GEN-LAST:event_donateBtnActionPerformed
 
-    private void pollBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pollBtnActionPerformed
-        // TODO add your handling code here:
+    private void raffleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_raffleBtnActionPerformed
         RaffleGUI myGUI = new RaffleGUI();
         myGUI.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_pollBtnActionPerformed
+    }//GEN-LAST:event_raffleBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,12 +190,12 @@ public class PollGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton donationBtn;
+    private javax.swing.JPanel background;
+    private javax.swing.JPanel buttonBckGnd;
+    private javax.swing.JButton donateBtn;
     private javax.swing.JButton homeBtn;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JButton pollBtn;
-    private javax.swing.JLabel pollsLbl;
+    private javax.swing.JLabel logoLbl;
+    private javax.swing.JButton raffleBtn;
+    private javax.swing.JLabel titleLbl;
     // End of variables declaration//GEN-END:variables
 }
