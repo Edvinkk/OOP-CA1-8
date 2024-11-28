@@ -10,17 +10,17 @@ package charityapp;
  */
 public class Charity {
     //data type
-    private String email;
+    private String userName;
     private String password;
     
     public Charity(){
-        email = new String();
+        userName = new String();
         password = new String();
     }
     
     //overloaded constructor
-    public Charity(String email, String password){
-        this.email = email;
+    public Charity(String userName, String password){
+        this.userName = userName;
         this.password = password;
     }
 
@@ -33,15 +33,14 @@ public class Charity {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
     
-    
-    
+   
     
 }
