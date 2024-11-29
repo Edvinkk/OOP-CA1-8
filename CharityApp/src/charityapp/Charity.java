@@ -4,11 +4,13 @@
  */
 package charityapp;
 
+import java.io.Serializable;
+
 /**
  *
  * @author edvin
  */
-public class Charity {
+public class Charity implements Serializable{
     //data type
     private String userName;
     private String password;

@@ -4,17 +4,27 @@
  */
 package charityapp;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author damie
  */
 public class RaffleGUI extends javax.swing.JFrame {
-
+    private RaffleGame raffleG;
     /**
      * Creates new form RaflleGUI
      */
     public RaffleGUI() {
         initComponents();
+        raffleG = new RaffleGame();
     }
 
     /**
@@ -38,10 +48,12 @@ public class RaffleGUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         historyTa = new javax.swing.JTextArea();
         historyLbl = new javax.swing.JLabel();
-        addBtn = new javax.swing.JButton();
+        clearBtn = new javax.swing.JButton();
         titleLbl = new javax.swing.JLabel();
         showBtn = new javax.swing.JButton();
         playBtn = new javax.swing.JButton();
+        saveBtn = new javax.swing.JButton();
+        loadBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -131,10 +143,15 @@ public class RaffleGUI extends javax.swing.JFrame {
         historyLbl.setForeground(new java.awt.Color(0, 255, 102));
         historyLbl.setText("Raffle History");
 
-        addBtn.setBackground(new java.awt.Color(0, 51, 51));
-        addBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        addBtn.setForeground(new java.awt.Color(0, 255, 102));
-        addBtn.setText("Add");
+        clearBtn.setBackground(new java.awt.Color(0, 51, 51));
+        clearBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        clearBtn.setForeground(new java.awt.Color(0, 255, 102));
+        clearBtn.setText("Clear");
+        clearBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearBtnActionPerformed(evt);
+            }
+        });
 
         titleLbl.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         titleLbl.setForeground(new java.awt.Color(0, 255, 102));
@@ -159,6 +176,31 @@ public class RaffleGUI extends javax.swing.JFrame {
         playBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         playBtn.setForeground(new java.awt.Color(0, 255, 102));
         playBtn.setText("Play");
+        playBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playBtnActionPerformed(evt);
+            }
+        });
+
+        saveBtn.setBackground(new java.awt.Color(0, 51, 51));
+        saveBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        saveBtn.setForeground(new java.awt.Color(0, 255, 102));
+        saveBtn.setText("Save");
+        saveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveBtnActionPerformed(evt);
+            }
+        });
+
+        loadBtn.setBackground(new java.awt.Color(0, 51, 51));
+        loadBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        loadBtn.setForeground(new java.awt.Color(0, 255, 102));
+        loadBtn.setText("Load");
+        loadBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -169,28 +211,27 @@ public class RaffleGUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
-                        .addComponent(titleLbl)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(titleLbl))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(entryLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(entryLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(historyLbl)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(showBtn)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(addBtn)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(playBtn))
-                                        .addComponent(entryTf, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(71, 71, 71))))
+                                    .addComponent(entryTf, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(historyLbl)
+                                    .addComponent(playBtn))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(showBtn)
+                                .addGap(43, 43, 43)
+                                .addComponent(clearBtn)
+                                .addGap(44, 44, 44)
+                                .addComponent(saveBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                                .addComponent(loadBtn)))))
+                .addGap(33, 33, 33))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,21 +239,23 @@ public class RaffleGUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(titleLbl)
-                .addGap(75, 75, 75)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(entryLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(entryTf, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(entryLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addBtn)
-                    .addComponent(playBtn))
+                .addComponent(entryTf, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(playBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(historyLbl, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(showBtn, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addComponent(historyLbl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(showBtn)
+                    .addComponent(clearBtn)
+                    .addComponent(saveBtn)
+                    .addComponent(loadBtn))
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -256,10 +299,108 @@ public class RaffleGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_titleLblFocusGained
 
+    private void save(){
+        //declare objects
+        File f;
+        FileOutputStream fStream;
+        ObjectOutputStream oStream;
+        
+        try{
+            //create objects
+            f = new File("output.dat");
+            fStream = new FileOutputStream(f);
+            oStream = new ObjectOutputStream(fStream);
+            
+            //use object
+            oStream.writeObject(raffleG);
+        }
+        catch(IOException e){
+            System.out.println("Error: "+e);
+        }
+    }
+    
+    private void load(){
+        //declare objects
+        File f;
+        FileInputStream fStream;
+        ObjectInputStream oStream;
+        
+        try{
+            //create object
+            f = new File("output.dat");
+            fStream = new FileInputStream(f);
+            oStream = new ObjectInputStream(fStream);
+            
+            //use object
+            raffleG = (RaffleGame)oStream.readObject();
+            
+            oStream.close();
+            
+            ArrayList<String> history = raffleG.getHistory();
+            historyTa.setText("");
+            for(String result : history){
+                historyTa.append(result +"\n");
+            }
+        }
+        catch(IOException|ClassNotFoundException e){
+            System.out.println("Error: "+e);
+        }
+    }
     private void showBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showBtnActionPerformed
         // TODO add your handling code here:
+        ArrayList<String> history = raffleG.getHistory();
+        
+        if(history.isEmpty()){
+            historyTa.setText("No Available History. Play the game!");
+        }
+        else{
+            for(String result : history){//for each result in history array
+                historyTa.append(result+"\n");
+            }
+        }
         
     }//GEN-LAST:event_showBtnActionPerformed
+
+    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
+        // TODO add your handling code here:
+        historyTa.setText("");
+    }//GEN-LAST:event_clearBtnActionPerformed
+
+    private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
+        // TODO add your handling code here:
+        save();
+    }//GEN-LAST:event_saveBtnActionPerformed
+
+    private void loadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadBtnActionPerformed
+        // TODO add your handling code here:
+        load();
+    }//GEN-LAST:event_loadBtnActionPerformed
+
+    private void playBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playBtnActionPerformed
+        // TODO add your handling code here:
+        String userInput = entryTf.getText();
+        entryTf.setText("");
+        
+        //try to parse userInput into integer
+        try{
+            int userNumber= Integer.parseInt(userInput);
+            
+            if(userNumber < 1|| userNumber > 20){
+                JOptionPane.showMessageDialog(null, "Please enter a valid number from 1-20!!");
+                return; //exiting the method
+            }
+            
+            //set the raffle from the user in RaffleGame object only if input is valid
+            raffleG.setUserNumber(userNumber);
+            //call the computeRaffle() method
+            raffleG.computeRaffle();
+            //Display result in a pop-up
+            JOptionPane.showMessageDialog(null, raffleG.getResult());
+        }
+        catch(NumberFormatException e ){
+            JOptionPane.showMessageDialog(null, "INVALID INPUT. \nPlease enter a valid number between 1-20.");
+        }
+    }//GEN-LAST:event_playBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -298,8 +439,8 @@ public class RaffleGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addBtn;
     private javax.swing.JButton charityBtn;
+    private javax.swing.JButton clearBtn;
     private javax.swing.JButton donationBtn;
     private javax.swing.JLabel entryLbl;
     private javax.swing.JTextField entryTf;
@@ -309,9 +450,11 @@ public class RaffleGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton loadBtn;
     private javax.swing.JButton playBtn;
     private javax.swing.JButton pollBtn;
     private javax.swing.JLabel raffleLbl;
+    private javax.swing.JButton saveBtn;
     private javax.swing.JButton showBtn;
     private javax.swing.JLabel titleLbl;
     // End of variables declaration//GEN-END:variables
