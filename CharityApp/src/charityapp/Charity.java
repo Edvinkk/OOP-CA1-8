@@ -12,8 +12,8 @@ import java.io.Serializable;
  */
 public class Charity implements Serializable{
     //data type
-    private String userName;
-    private String password;
+    protected String userName;
+    protected String password;
     
     public Charity(){
         userName = new String();

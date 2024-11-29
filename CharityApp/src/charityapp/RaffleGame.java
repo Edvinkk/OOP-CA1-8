@@ -15,20 +15,20 @@ public class RaffleGame extends Charity{
     private int number;
     private int userNumber;
     private int entryNum;
-    private String result;
-    private ArrayList<String> history;
+    private boolean result;
+    private ArrayList<RaffleResult> history;
     
     //default constructor
     public RaffleGame(){
         number = 0;
         userNumber = 0;
         entryNum = (int)(Math.random()*20)+1;
-        result = new String();
+        result = false;
         history = new ArrayList<>();
     }
 
-    public RaffleGame(String email, String password, int number, int userNumber, int entryNum, String result, ArrayList<String> history) {
-        super(email, password);
+    public RaffleGame(String userName, String password, int number, int userNumber, int entryNum, boolean result, ArrayList<RaffleResult> history) {
+        super(userName, password);
         this.number = number;
         this.userNumber = userNumber;
         this.entryNum = entryNum;
@@ -60,11 +60,11 @@ public class RaffleGame extends Charity{
         this.entryNum = entryNum;
     }
 
-    public String getResult() {
+    public boolean isResult() {
         return result;
     }
 
-    public void setResult(String result) {
+    public void setResult(boolean result) {
         this.result = result;
     }
     
@@ -75,21 +75,39 @@ public class RaffleGame extends Charity{
             this.number = (int)(Math.random()*entryNum)+1;
         }
         
-        if(userNumber== number){
-            result= "Congratulations! "+c.getUserName()+"Your number " + userNumber + " has been picked!";
+        //Using RaffleResult
+        RaffleResult myR = new RaffleResult();
+        
+        myR.setUserNumber(userNumber);
+        myR.setResult(userNumber == number);
+        
+        //Use variable Username from the Charity parent class
+        if(userName.isEmpty()){
+            myR.setName("Damien");
         }
         else{
-            result = "Unfortunately, "+c.getUserName()+" your number: "+userNumber+" did not get picked, the raffle winner is: "+number;
+            myR.setName(userName);
+        }
+        
+        if(userNumber== number){
+            result =true; 
+            myR.getUserNumber();
+            myR.isResult();
+        }
+        else{
+            result = false;
+            myR.getUserNumber();
+            myR.isResult();
         }
         
         //Reset number every raffle entry
         this.number = (int)(Math.random()*entryNum)+1;
         
         //Store result in the history
-        history.add(result);
+        history.add(myR);
     }
     
-    public ArrayList<String> getHistory(){
+    public ArrayList<RaffleResult> getHistory(){
         //return ArrayList history that stores the results for all the raffle
         return history;
     }

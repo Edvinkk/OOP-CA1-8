@@ -210,52 +210,57 @@ public class RaffleGUI extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(titleLbl))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
                             .addComponent(entryLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(entryTf, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(historyLbl)
-                                    .addComponent(playBtn))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(showBtn)
-                                .addGap(43, 43, 43)
-                                .addComponent(clearBtn)
-                                .addGap(44, 44, 44)
-                                .addComponent(saveBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                                .addComponent(loadBtn)))))
-                .addGap(33, 33, 33))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(entryTf, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(playBtn))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(showBtn)
+                                            .addComponent(clearBtn)
+                                            .addComponent(saveBtn)
+                                            .addComponent(loadBtn))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(33, 33, 33))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(titleLbl)
+                        .addContainerGap(96, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addContainerGap()
                 .addComponent(titleLbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(entryLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(entryTf, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(playBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(entryTf, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(playBtn))
+                .addGap(28, 28, 28)
                 .addComponent(historyLbl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(showBtn)
-                    .addComponent(clearBtn)
-                    .addComponent(saveBtn)
-                    .addComponent(loadBtn))
-                .addGap(40, 40, 40))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(showBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(clearBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(saveBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(loadBtn))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -336,10 +341,10 @@ public class RaffleGUI extends javax.swing.JFrame {
             
             oStream.close();
             
-            ArrayList<String> history = raffleG.getHistory();
+            ArrayList<RaffleResult> history = raffleG.getHistory();
             historyTa.setText("");
-            for(String result : history){
-                historyTa.append(result +"\n");
+            for(RaffleResult result : history){
+                historyTa.append("Name: "+result.getName()+"\nEntry Number: "+result.getUserNumber()+"\nStatus: "+(result.isResult()?"Won": "Lost")+"\n\n");
             }
         }
         catch(IOException|ClassNotFoundException e){
@@ -348,14 +353,14 @@ public class RaffleGUI extends javax.swing.JFrame {
     }
     private void showBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showBtnActionPerformed
         // TODO add your handling code here:
-        ArrayList<String> history = raffleG.getHistory();
+        ArrayList<RaffleResult> history = raffleG.getHistory();
         
         if(history.isEmpty()){
-            historyTa.setText("No Available History. Play the game!");
+            historyTa.setText("No Available History. Play the game!\n");
         }
         else{
-            for(String result : history){//for each result in history array
-                historyTa.append(result+"\n");
+            for(RaffleResult result : history){//for each result in history array
+                historyTa.append("Name: "+result.getName()+"\nEntry Number: "+result.getUserNumber()+"\nStatus: "+(result.isResult()?"Won": "Lost")+"\n\n");
             }
         }
         
@@ -394,8 +399,10 @@ public class RaffleGUI extends javax.swing.JFrame {
             raffleG.setUserNumber(userNumber);
             //call the computeRaffle() method
             raffleG.computeRaffle();
+            
+            String msg = raffleG.isResult() ?"Congrats! You Won the Raffle!" : "Hard Luck! "+raffleG.getNumber()+" Is the Winning Number.";
             //Display result in a pop-up
-            JOptionPane.showMessageDialog(null, raffleG.getResult());
+            JOptionPane.showMessageDialog(null, msg);
         }
         catch(NumberFormatException e ){
             JOptionPane.showMessageDialog(null, "INVALID INPUT. \nPlease enter a valid number between 1-20.");
