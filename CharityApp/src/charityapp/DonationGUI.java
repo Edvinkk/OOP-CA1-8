@@ -6,15 +6,27 @@ package charityapp;
 
 /**
  *
- * @author bogda
+ * @author bogdan
  */
-public class DonationGUI extends javax.swing.JFrame {
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+
+public class DonationGUI extends javax.swing.JFrame {
+    private final Donations donation;
+    private final DonationHistory donationHistory;
+    private final TotalDonationHistory totalDonationHistory;
     /**
      * Creates new form DonationGUI
      */
     public DonationGUI() {
+        donation = new Donations();
+        donationHistory = new DonationHistory();
+        totalDonationHistory = new TotalDonationHistory();
         initComponents();
+        setButtonActions();
+
     }
 
     /**
@@ -271,6 +283,49 @@ public class DonationGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_amountTfActionPerformed
 
+    
+    
+    private void setButtonActions() {
+    // Action for "Donate" button
+    jButton1.setText("Donate");
+    jButton1.addActionListener((ActionEvent e) -> {
+        String name1 = nameTf.getText().trim();
+        String dob = dobTf.getText().trim();
+        String amountText = amountTf.getText().trim();
+        if (name1.isEmpty() || dob.isEmpty() || amountText.isEmpty()) {
+            historyTa.setText("All fields are required to donate.");
+            return;
+        }
+        try {
+            double amount = Double.parseDouble(amountText);
+            donation.addDonation(amount);
+            donationHistory.addDonationEntry(amount);
+            totalDonationHistory.addDonation(name1, amount);
+            historyTa.setText("Thank you for your donation, " + name1 + "!");
+        }catch (NumberFormatException ex) {
+            historyTa.setText("Please enter a valid amount.");
+        }
+    });
+
+    // Action for "View Your History" button
+    jButton2.setText("View Your History");
+    jButton2.addActionListener((ActionEvent e) -> {
+        StringBuilder history = donationHistory.getHistory();
+        if (history.length() == 0) {
+            historyTa.setText("No donation history found.");
+        } else {
+            historyTa.setText(history.toString());
+        }
+    });
+
+    // Action for "View Total History" button
+    jButton3.setText("View Total History");
+    jButton3.addActionListener((ActionEvent e) -> {
+        String totalHistory = totalDonationHistory.displayTotalDonations();
+        historyTa.setText(totalHistory);
+    });
+}
+
     /**
      * @param args the command line arguments
      */
@@ -299,10 +354,8 @@ public class DonationGUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DonationGUI().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new DonationGUI().setVisible(true);
         });
     }
 
