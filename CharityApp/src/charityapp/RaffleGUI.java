@@ -304,6 +304,7 @@ public class RaffleGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_titleLblFocusGained
 
+    //This will be used to save the Game
     private void save(){
         //declare objects
         File f;
@@ -311,19 +312,21 @@ public class RaffleGUI extends javax.swing.JFrame {
         ObjectOutputStream oStream;
         
         try{
-            //create objects
+            //create objects for saving in output.dat file
             f = new File("output.dat");
             fStream = new FileOutputStream(f);
             oStream = new ObjectOutputStream(fStream);
             
-            //use object
+            //use object: Save Raffle Game object to the file
             oStream.writeObject(raffleG);
         }
-        catch(IOException e){
-            System.out.println("Error: "+e);
+        catch(IOException re){
+            //print error message if something goes wrong
+            System.out.println("Error: "+re);
         }
     }
     
+    //This will be used to load the game after closing the application
     private void load(){
         //declare objects
         File f;
@@ -339,16 +342,19 @@ public class RaffleGUI extends javax.swing.JFrame {
             //use object
             raffleG = (RaffleGame)oStream.readObject();
             
+            //close stream to release the file
             oStream.close();
-            
+            //Get history from raffleG and information from RaffleResult is stored in the History
             ArrayList<RaffleResult> history = raffleG.getHistory();
             historyTa.setText("");
+            //Loop through the history to display the result
             for(RaffleResult result : history){
+                //Append formateted details of RaffleResult object to text area
                 historyTa.append("Name: "+result.getName()+"\nEntry Number: "+result.getUserNumber()+"\nStatus: "+(result.isResult()?"Won": "Lost")+"\n\n");
             }
         }
-        catch(IOException|ClassNotFoundException e){
-            System.out.println("Error: "+e);
+        catch(IOException|ClassNotFoundException re){//Catch IOException if issues arise reading the file and ClassNotFound is saved object cannot be found
+            System.out.println("Error: "+re);
         }
     }
     private void showBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showBtnActionPerformed
@@ -368,28 +374,33 @@ public class RaffleGUI extends javax.swing.JFrame {
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
         // TODO add your handling code here:
+        //clear the historyTa text area
         historyTa.setText("");
     }//GEN-LAST:event_clearBtnActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         // TODO add your handling code here:
+        //calls the save method
         save();
     }//GEN-LAST:event_saveBtnActionPerformed
 
     private void loadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadBtnActionPerformed
         // TODO add your handling code here:
+        //calls the load method
         load();
     }//GEN-LAST:event_loadBtnActionPerformed
 
     private void playBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playBtnActionPerformed
         // TODO add your handling code here:
         String userInput = entryTf.getText();
-        entryTf.setText("");
+        entryTf.setText("");//clear field
         
         //try to parse userInput into integer
         try{
+            //converting input to integer
             int userNumber= Integer.parseInt(userInput);
             
+            //check if number entered is valid
             if(userNumber < 1|| userNumber > 20){
                 JOptionPane.showMessageDialog(null, "Please enter a valid number from 1-20!!");
                 return; //exiting the method
@@ -400,11 +411,13 @@ public class RaffleGUI extends javax.swing.JFrame {
             //call the computeRaffle() method
             raffleG.computeRaffle();
             
+            //create msg to show if user won or lost
             String msg = raffleG.isResult() ?"Congrats! You Won the Raffle!" : "Hard Luck! "+raffleG.getNumber()+" Is the Winning Number.";
             //Display result in a pop-up
             JOptionPane.showMessageDialog(null, msg);
         }
-        catch(NumberFormatException e ){
+        catch(NumberFormatException re ){
+            //if number is not a number, show the error message
             JOptionPane.showMessageDialog(null, "INVALID INPUT. \nPlease enter a valid number between 1-20.");
         }
     }//GEN-LAST:event_playBtnActionPerformed

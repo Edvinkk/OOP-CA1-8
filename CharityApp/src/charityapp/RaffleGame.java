@@ -22,11 +22,12 @@ public class RaffleGame extends Charity{
     public RaffleGame(){
         number = 0;
         userNumber = 0;
-        entryNum = (int)(Math.random()*20)+1;
+        entryNum = (int)(Math.random()*20)+1;//Generate numbers between 1-20
         result = false;
         history = new ArrayList<>();
     }
 
+    //Overloaded Constructor that initialise all variables and the inherited ones as well
     public RaffleGame(String userName, String password, int number, int userNumber, int entryNum, boolean result, ArrayList<RaffleResult> history) {
         super(userName, password);
         this.number = number;
@@ -36,6 +37,7 @@ public class RaffleGame extends Charity{
         this.history = history;
     }
 
+    //Getters and Setters for accessing and update of the variables
     public int getNumber() {
         return number;
     }
@@ -68,21 +70,22 @@ public class RaffleGame extends Charity{
         this.result = result;
     }
     
-    
+    //ComputeRaffle method
     public void computeRaffle(){
         Charity c = new Charity();
         if(number == 0){
             this.number = (int)(Math.random()*entryNum)+1;
         }
         
-        //Using RaffleResult
+        //Create Object RaffleResult
         RaffleResult myR = new RaffleResult();
         
-        myR.setUserNumber(userNumber);
-        myR.setResult(userNumber == number);
+        myR.setUserNumber(userNumber);//Store the raffle number
+        myR.setResult(userNumber == number);//check if it matches with the winning number
         
         //Use variable Username from the Charity parent class
         if(userName.isEmpty()){
+            //if userName is empty use "Damien"
             myR.setName("Damien");
         }
         else{

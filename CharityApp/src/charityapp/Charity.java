@@ -8,13 +8,14 @@ import java.io.Serializable;
 
 /**
  *
- * @author edvin
+ * @author damie
  */
 public class Charity implements Serializable{
-    //data type
+    //declare data types
     protected String userName;
     protected String password;
     
+    //default constructor
     public Charity(){
         userName = new String();
         password = new String();
@@ -42,7 +43,5 @@ public class Charity implements Serializable{
     public void setUserName(String userName) {
         this.userName = userName;
     }
-    
-   
-    
+
 }
