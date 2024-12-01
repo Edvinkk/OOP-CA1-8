@@ -4,6 +4,13 @@
  */
 package charityapp;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 /**
  *
  * @author edvin
@@ -13,8 +20,62 @@ public class PollGUI extends javax.swing.JFrame {
     /**
      * Creates new form PollGUI
      */
+    private Poll myPoll;
+    // Arrays to store votes for Poll 1, Poll 2, and Poll 3
+    private int[] inFavourVotes = new int[3];
+    private int[] againstVotes = new int[3];
+
     public PollGUI() {
         initComponents();
+        myPoll = new Poll();
+
+        //load votes from file
+        load();
+    }
+
+    // Method to save votes to file
+    private void save() {
+        File f;
+        FileOutputStream fStream;
+        ObjectOutputStream oStream;
+
+        try {
+            f = new File("votes.dat");
+            fStream = new FileOutputStream(f);
+            oStream = new ObjectOutputStream(fStream);
+
+            // Save the vote counts for each poll (In Favour and Against)
+            oStream.writeObject(inFavourVotes);
+            oStream.writeObject(againstVotes);
+
+            oStream.close();
+        } catch (IOException e) {
+            System.out.println("Error saving votes: " + e.getMessage());
+        }
+    }
+
+    // Method to load votes from file
+    private void load() {
+        File f;
+        FileInputStream fStream;
+        ObjectInputStream oStream;
+
+        try {
+            f = new File("votes.dat");
+
+            if (f.exists()) {
+                fStream = new FileInputStream(f);
+                oStream = new ObjectInputStream(fStream);
+
+                // Load the vote counts for each poll
+                inFavourVotes = (int[]) oStream.readObject();
+                againstVotes = (int[]) oStream.readObject();
+
+                oStream.close();
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error loading votes: " + e.getMessage());
+        }
     }
 
     /**
@@ -26,6 +87,7 @@ public class PollGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        typeGrp = new javax.swing.ButtonGroup();
         background = new javax.swing.JPanel();
         buttonBckGnd = new javax.swing.JPanel();
         titleLbl = new javax.swing.JLabel();
@@ -33,6 +95,13 @@ public class PollGUI extends javax.swing.JFrame {
         homeBtn = new javax.swing.JButton();
         donateBtn = new javax.swing.JButton();
         raffleBtn = new javax.swing.JButton();
+        poll1Rb = new javax.swing.JRadioButton();
+        poll2Rb = new javax.swing.JRadioButton();
+        poll3Rb = new javax.swing.JRadioButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        pollTa = new javax.swing.JTextArea();
+        favourBtn = new javax.swing.JButton();
+        againstBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 204, 255));
@@ -106,8 +175,55 @@ public class PollGUI extends javax.swing.JFrame {
                 .addComponent(donateBtn)
                 .addGap(38, 38, 38)
                 .addComponent(raffleBtn)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
+
+        typeGrp.add(poll1Rb);
+        poll1Rb.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        poll1Rb.setText("Poll 1");
+        poll1Rb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                poll1RbActionPerformed(evt);
+            }
+        });
+
+        typeGrp.add(poll2Rb);
+        poll2Rb.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        poll2Rb.setText("Poll 2");
+        poll2Rb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                poll2RbActionPerformed(evt);
+            }
+        });
+
+        typeGrp.add(poll3Rb);
+        poll3Rb.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        poll3Rb.setText("Poll 3");
+        poll3Rb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                poll3RbActionPerformed(evt);
+            }
+        });
+
+        pollTa.setColumns(20);
+        pollTa.setRows(5);
+        jScrollPane1.setViewportView(pollTa);
+
+        favourBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        favourBtn.setText("In favour");
+        favourBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                favourBtnActionPerformed(evt);
+            }
+        });
+
+        againstBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        againstBtn.setText("Against");
+        againstBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                againstBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);
@@ -115,11 +231,42 @@ public class PollGUI extends javax.swing.JFrame {
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addComponent(buttonBckGnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 460, Short.MAX_VALUE))
+                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(backgroundLayout.createSequentialGroup()
+                        .addGap(108, 108, 108)
+                        .addComponent(favourBtn)
+                        .addGap(66, 66, 66)
+                        .addComponent(againstBtn)
+                        .addContainerGap(126, Short.MAX_VALUE))
+                    .addGroup(backgroundLayout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(poll1Rb)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(poll2Rb)
+                        .addGap(68, 68, 68)
+                        .addComponent(poll3Rb)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1)
+                        .addGap(27, 27, 27))))
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(buttonBckGnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(buttonBckGnd, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+            .addGroup(backgroundLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(poll1Rb)
+                    .addComponent(poll2Rb)
+                    .addComponent(poll3Rb))
+                .addGap(36, 36, 36)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(favourBtn)
+                    .addComponent(againstBtn))
+                .addContainerGap(213, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -153,6 +300,62 @@ public class PollGUI extends javax.swing.JFrame {
         myGUI.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_raffleBtnActionPerformed
+
+    private void poll1RbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_poll1RbActionPerformed
+        pollTa.setText(myPoll.getPolls().get(0));
+    }//GEN-LAST:event_poll1RbActionPerformed
+
+    private void poll2RbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_poll2RbActionPerformed
+        pollTa.setText(myPoll.getPolls().get(1));
+    }//GEN-LAST:event_poll2RbActionPerformed
+
+    private void poll3RbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_poll3RbActionPerformed
+        pollTa.setText(myPoll.getPolls().get(2));
+    }//GEN-LAST:event_poll3RbActionPerformed
+
+    private void favourBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favourBtnActionPerformed
+        // Determine which poll is selected and update the respective "In favour" vote count
+        if (poll1Rb.isSelected()) {
+            inFavourVotes[0]++;
+            pollTa.setText("Thank you for voting! You are in favour for Poll 1.");
+        } else if (poll2Rb.isSelected()) {
+            inFavourVotes[1]++;
+            pollTa.setText("Thank you for voting! You are in favour for Poll 2.");
+        } else if (poll3Rb.isSelected()) {
+            inFavourVotes[2]++;
+            pollTa.setText("Thank you for voting! You are in favour for Poll 3.");
+        }
+        // Save the updated votes to file
+        save();
+
+        // Display current vote counts
+        pollTa.append("\nCurrent Votes: \nPoll 1 - In Favour: " + inFavourVotes[0] + ", Against: " + againstVotes[0]);
+        pollTa.append("\nPoll 2 - In Favour: " + inFavourVotes[1] + ", Against: " + againstVotes[1]);
+        pollTa.append("\nPoll 3 - In Favour: " + inFavourVotes[2] + ", Against: " + againstVotes[2]);
+
+    }//GEN-LAST:event_favourBtnActionPerformed
+
+    private void againstBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_againstBtnActionPerformed
+        // Determine which poll is selected and update the respective "Against" vote count
+        if (poll1Rb.isSelected()) {
+            againstVotes[0]++;
+            pollTa.setText("Thank you for voting! You are against Poll 1.");
+        } else if (poll2Rb.isSelected()) {
+            againstVotes[1]++;
+            pollTa.setText("Thank you for voting! You are against Poll 2.");
+        } else if (poll3Rb.isSelected()) {
+            againstVotes[2]++;
+            pollTa.setText("Thank you for voting! You are against Poll 3.");
+        }
+
+        // Save the updated votes to file
+        save();
+
+        // Display current vote counts
+        pollTa.append("\nCurrent Votes: \nPoll 1 - In Favour: " + inFavourVotes[0] + ", Against: " + againstVotes[0]);
+        pollTa.append("\nPoll 2 - In Favour: " + inFavourVotes[1] + ", Against: " + againstVotes[1]);
+        pollTa.append("\nPoll 3 - In Favour: " + inFavourVotes[2] + ", Against: " + againstVotes[2]);
+    }//GEN-LAST:event_againstBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,12 +393,20 @@ public class PollGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton againstBtn;
     private javax.swing.JPanel background;
     private javax.swing.JPanel buttonBckGnd;
     private javax.swing.JButton donateBtn;
+    private javax.swing.JButton favourBtn;
     private javax.swing.JButton homeBtn;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel logoLbl;
+    private javax.swing.JRadioButton poll1Rb;
+    private javax.swing.JRadioButton poll2Rb;
+    private javax.swing.JRadioButton poll3Rb;
+    private javax.swing.JTextArea pollTa;
     private javax.swing.JButton raffleBtn;
     private javax.swing.JLabel titleLbl;
+    private javax.swing.ButtonGroup typeGrp;
     // End of variables declaration//GEN-END:variables
 }
