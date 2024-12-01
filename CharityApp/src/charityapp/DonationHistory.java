@@ -6,8 +6,12 @@ package charityapp;
 
 /**
  *
- * @author bogda
+ * @author Bogdan Postolachi
  */
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +24,24 @@ public class DonationHistory {
 
     public void addDonationEntry(double amount) {
         donationHistory.add(amount);
+        updateDonationFile();
+    }
+    
+    
+      public void updateDonationFile() {
+        File file = new File("donationHistory.txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) {
+            for (double donation : donationHistory) {
+                writer.write("Donation: €" + donation);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing to donation file: " + e.getMessage());
+        }
     }
 
     public void displayHistory() {
-        System.out.println("\n=== Donation History ===");
+        System.out.println("Donation History");
         if (donationHistory.isEmpty()) {
             System.out.println("No donations made yet.");
         } else {
@@ -33,8 +51,12 @@ public class DonationHistory {
         }
     }
 
-    StringBuilder getHistory() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+   public StringBuilder getHistory() {
+        StringBuilder history = new StringBuilder();
+        for (double donation : donationHistory) {
+            history.append("Donation: €").append(donation).append("\n");
+        }
+        return history;
     }
 }
 
