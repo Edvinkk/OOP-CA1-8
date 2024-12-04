@@ -48,7 +48,7 @@ public class TotalDonationHistory {
     }
 
     // Calculate the total of all donations
-    public double calculateGrandTotal() {
+    public double calculatedTotal() {
         double total = 0;
         for (Donations donation : allDonations) {
             for (Double amount : donation.getDonationAmounts()) {
@@ -56,6 +56,14 @@ public class TotalDonationHistory {
             }
         }
         return total;
+    }
+
+    Object getAllDonations() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    Donations getUserDonation(String userName) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
 
