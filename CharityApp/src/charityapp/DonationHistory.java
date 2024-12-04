@@ -8,27 +8,27 @@ package charityapp;
  *
  * @author Bogdan Postolachi
  */
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+//import java.io.BufferedWriter;
+//import java.io.File;
+//import java.io.FileWriter;
+//import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+//import java.util.List;
 
 public class DonationHistory {
-    private List<Double> donationHistory;
+    private ArrayList<String> donationHistory;
 
     public DonationHistory() {
         this.donationHistory = new ArrayList<>();
     }
 
-    public void addDonationEntry(double amount) {
-        donationHistory.add(amount);
-        updateDonationFile();
+    public void addDonationEntry(String newRecord) {
+        donationHistory.add(newRecord);
+        //updateDonationFile();
     }
     
     
-      public void updateDonationFile() {
+      /*public void updateDonationFile() {
         File file = new File("donationHistory.txt");
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) {
             for (double donation : donationHistory) {
@@ -57,6 +57,22 @@ public class DonationHistory {
             history.append("Donation: €").append(donation).append("\n");
         }
         return history;
+    }*/
+    
+    
+     public ArrayList<String> getHistory() {
+        return donationHistory;
+    }
+
+    public String displayHistory() {
+        if (donationHistory.isEmpty()) {
+            return "No donation history available.";
+        }
+        StringBuilder sb = new StringBuilder("Donation History:\n");
+        for (String newRecord : donationHistory) {
+            sb.append(newRecord).append("\n");
+        }
+        return sb.toString();
     }
 }
 

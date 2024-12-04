@@ -6,33 +6,88 @@ package charityapp;
 
 //import java.io.Serializable;
 
+import java.util.ArrayList;
+
+
 /**
  *
  * @author Bogdan Postolachi
  */
-public class Donations {
+
+//Donations is a subclass of Charity
+public class Donations extends Charity{
+    private ArrayList<Double> donationAmounts;
     private double dAmount;
-    private String name;
+    //private String name;
     private String dob;
     private String message;
+    
+    
 
     public Donations() {
-        name = "";
+        super();
+        donationAmounts = new ArrayList<>();
+        //name = "";
         dob = "";
         message = "";
-        this.dAmount = 0.0;
+        dAmount = 0.0;
     }
 
-    public Donations(double dAmount, String name, String dob, String message) {
-        this.name = name;
+    
+    
+    public Donations(String userName, String password, double dAmount, String dob, String message) {
+        //this.name = name;
+        super(userName, password);
         this.dob = dob;
         this.message = message;
         this.dAmount = dAmount;
     }
 
+    public void addDonation(double amount) {
+          dAmount = amount;
+        donationAmounts.add(amount);
+    }
     
     
-    public double getDonationAmount() {
+      public ArrayList<Double> getDonationAmounts() {
+        return donationAmounts;
+    }
+
+      
+
+        public double getdAmount() {
+            return dAmount;
+        }
+
+        public void setdAmount(double dAmount) {
+            this.dAmount = dAmount;
+        }
+
+        public String getDob() {
+            return dob;
+        }
+
+        public void setDob(String dob) {
+            this.dob = dob;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+        
+        
+        
+        //@Override
+        public String getDetails() {
+            return "User: " + userName + ", DOB: " + dob + "Message:" + message + "Your Donation Was: $" + dAmount;
+        }
+}
+    
+    /*public double getDonationAmount() {
         return dAmount;
     }
 
@@ -62,20 +117,20 @@ public class Donations {
 
     public void setMessage(String message) {
         this.message = message;
-    }
+    }*/
     
     
     
-    public void addDonation(double amount) {
-        this.dAmount += amount;
-    }
+    /*public void addDonation(double amount) {
+        this.dAmount = amount;
+    }*/
 
-    @Override
+    /*@Override
     public String toString() {
         return "Donation Amount: " + dAmount;
-    }
+    }*/
     
     
     
-}
+//}
 
