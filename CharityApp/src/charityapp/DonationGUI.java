@@ -9,6 +9,7 @@ package charityapp;
  * @author Bogdan Postolachi
  */
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class DonationGUI extends javax.swing.JFrame {
 
     private final Donations donation;
-    private final DonationHistory donationHistory;
+    //private final DonationHistory donationHistory;
     private TotalDonationHistory totalDonationHistory;
 
     /**
@@ -28,7 +29,7 @@ public class DonationGUI extends javax.swing.JFrame {
      */
     public DonationGUI() {
         donation = new Donations();
-        donationHistory = new DonationHistory();
+        //donationHistory = new DonationHistory();
         totalDonationHistory = new TotalDonationHistory();
         initComponents();
         //setButtonActions();
@@ -60,7 +61,6 @@ public class DonationGUI extends javax.swing.JFrame {
         pollBtn = new javax.swing.JButton();
         walletLbl = new javax.swing.JLabel();
         donateRb = new javax.swing.JRadioButton();
-        histRb = new javax.swing.JRadioButton();
         totlHistRb = new javax.swing.JRadioButton();
         nameTf = new javax.swing.JTextField();
         dobTf = new javax.swing.JTextField();
@@ -71,7 +71,6 @@ public class DonationGUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         historyTa = new javax.swing.JTextArea();
         donateBtn = new javax.swing.JButton();
-        histBtn = new javax.swing.JButton();
         totHistBtn = new javax.swing.JButton();
         historyLbl = new javax.swing.JLabel();
         clearBtn = new javax.swing.JButton();
@@ -80,6 +79,7 @@ public class DonationGUI extends javax.swing.JFrame {
         searchTf = new javax.swing.JTextField();
         searchLbl = new javax.swing.JLabel();
         searchBtn = new javax.swing.JButton();
+        showBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -154,7 +154,7 @@ public class DonationGUI extends javax.swing.JFrame {
                 .addComponent(raffleBtn)
                 .addGap(46, 46, 46)
                 .addComponent(pollBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         buttonGroup1.add(donateRb);
@@ -162,14 +162,6 @@ public class DonationGUI extends javax.swing.JFrame {
         donateRb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 donateRbActionPerformed(evt);
-            }
-        });
-
-        buttonGroup1.add(histRb);
-        histRb.setText("View Your History");
-        histRb.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                histRbActionPerformed(evt);
             }
         });
 
@@ -193,8 +185,12 @@ public class DonationGUI extends javax.swing.JFrame {
             }
         });
 
+        nameLbl.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        nameLbl.setForeground(new java.awt.Color(0, 255, 102));
         nameLbl.setText("Full Name:");
 
+        dobLbl.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        dobLbl.setForeground(new java.awt.Color(0, 255, 102));
         dobLbl.setText("DOB:");
 
         amountTf.addActionListener(new java.awt.event.ActionListener() {
@@ -203,12 +199,17 @@ public class DonationGUI extends javax.swing.JFrame {
             }
         });
 
-        amountLbl.setText("Donation Ammount:");
+        amountLbl.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        amountLbl.setForeground(new java.awt.Color(0, 255, 102));
+        amountLbl.setText("Amount:");
 
         historyTa.setColumns(20);
         historyTa.setRows(5);
         jScrollPane1.setViewportView(historyTa);
 
+        donateBtn.setBackground(new java.awt.Color(0, 0, 0));
+        donateBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        donateBtn.setForeground(new java.awt.Color(0, 255, 102));
         donateBtn.setText("Donate");
         donateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,13 +217,9 @@ public class DonationGUI extends javax.swing.JFrame {
             }
         });
 
-        histBtn.setText("View Your History");
-        histBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                histBtnActionPerformed(evt);
-            }
-        });
-
+        totHistBtn.setBackground(new java.awt.Color(0, 0, 0));
+        totHistBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        totHistBtn.setForeground(new java.awt.Color(0, 255, 102));
         totHistBtn.setText("View Total History");
         totHistBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,8 +227,13 @@ public class DonationGUI extends javax.swing.JFrame {
             }
         });
 
+        historyLbl.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        historyLbl.setForeground(new java.awt.Color(0, 255, 102));
         historyLbl.setText("History:");
 
+        clearBtn.setBackground(new java.awt.Color(0, 0, 0));
+        clearBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        clearBtn.setForeground(new java.awt.Color(0, 255, 102));
         clearBtn.setText("Clear");
         clearBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,6 +241,9 @@ public class DonationGUI extends javax.swing.JFrame {
             }
         });
 
+        loadBtn.setBackground(new java.awt.Color(0, 0, 0));
+        loadBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        loadBtn.setForeground(new java.awt.Color(0, 255, 102));
         loadBtn.setText("Load");
         loadBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -246,6 +251,9 @@ public class DonationGUI extends javax.swing.JFrame {
             }
         });
 
+        saveBtn.setBackground(new java.awt.Color(0, 0, 0));
+        saveBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        saveBtn.setForeground(new java.awt.Color(0, 255, 102));
         saveBtn.setText("Save");
         saveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -259,12 +267,27 @@ public class DonationGUI extends javax.swing.JFrame {
             }
         });
 
+        searchLbl.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        searchLbl.setForeground(new java.awt.Color(0, 255, 102));
         searchLbl.setText("Search:");
 
+        searchBtn.setBackground(new java.awt.Color(0, 0, 0));
+        searchBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        searchBtn.setForeground(new java.awt.Color(0, 255, 102));
         searchBtn.setText("Search");
         searchBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchBtnActionPerformed(evt);
+            }
+        });
+
+        showBtn.setBackground(new java.awt.Color(0, 0, 0));
+        showBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        showBtn.setForeground(new java.awt.Color(0, 255, 102));
+        showBtn.setText("Show");
+        showBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showBtnActionPerformed(evt);
             }
         });
 
@@ -274,106 +297,111 @@ public class DonationGUI extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(donateBtn)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(histBtn)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(totHistBtn))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(clearBtn)
-                                    .addGap(33, 33, 33)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(searchLbl)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                                        .addComponent(searchTf, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(27, 27, 27)
+                                        .addComponent(searchBtn)
+                                        .addGap(120, 120, 120))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(dobLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(nameLbl)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(amountTf, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                                                    .addComponent(dobTf)
+                                                    .addComponent(nameTf))
+                                                .addGap(27, 27, 27))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(amountLbl)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addComponent(donateBtn)
+                                        .addGap(116, 116, 116)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(saveBtn)
-                                    .addGap(28, 28, 28)
-                                    .addComponent(loadBtn)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(searchBtn)))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(dobTf, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(donateRb, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(histRb)
-                                    .addGap(28, 28, 28)
-                                    .addComponent(totlHistRb))
-                                .addComponent(nameTf, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
-                                .addComponent(amountTf, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
-                                .addComponent(searchTf)))
-                        .addGap(78, 78, 78))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(nameLbl)
-                        .addGap(237, 237, 237))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(dobLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(251, 251, 251))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(amountLbl)
-                        .addGap(221, 221, 221))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(historyLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(244, 244, 244))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(searchLbl)
-                        .addGap(253, 253, 253))))
+                                    .addComponent(showBtn)
+                                    .addComponent(clearBtn)
+                                    .addComponent(loadBtn)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(176, 176, 176)
+                                .addComponent(donateRb, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(totlHistRb)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(26, 26, 26))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(196, 196, 196)
+                                .addComponent(totHistBtn))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(88, 88, 88)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(247, 247, 247)
+                                .addComponent(historyLbl)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(donateRb)
-                    .addComponent(histRb)
                     .addComponent(totlHistRb))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(nameLbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nameTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(dobLbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dobTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(amountLbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(amountTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchLbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(49, 49, 49)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nameTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameLbl)
+                    .addComponent(clearBtn))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dobLbl)
+                    .addComponent(dobTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saveBtn))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(amountLbl)
+                    .addComponent(amountTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(showBtn)
+                    .addComponent(donateBtn))
+                .addGap(18, 18, 18)
+                .addComponent(loadBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchLbl)
+                    .addComponent(searchTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchBtn))
+                .addGap(18, 18, 18)
                 .addComponent(historyLbl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(donateBtn)
-                    .addComponent(histBtn)
-                    .addComponent(totHistBtn))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(clearBtn)
-                    .addComponent(loadBtn)
-                    .addComponent(saveBtn)
-                    .addComponent(searchBtn))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(totHistBtn)
+                .addGap(56, 56, 56))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
         );
 
         pack();
@@ -420,12 +448,6 @@ public class DonationGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_donateBtnActionPerformed
 
-    private void histBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_histBtnActionPerformed
-        // TODO add your handling code here:
-        String totalHistory = donationHistory.displayHistory();
-        historyTa.setText(totalHistory);
-    }//GEN-LAST:event_histBtnActionPerformed
-
     private void totHistBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totHistBtnActionPerformed
         // TODO add your handling code here:
         String totalHistory = totalDonationHistory.displayTotalDonations();
@@ -457,24 +479,16 @@ public class DonationGUI extends javax.swing.JFrame {
         historyLbl.setVisible(false);
         historyTa.setVisible(true);
         donateBtn.setVisible(true);
-        histBtn.setVisible(false);
+        //histBtn.setVisible(false);
         totHistBtn.setVisible(false);
+        searchLbl.setVisible(false);
+        searchTf.setVisible(false);
+        searchBtn.setVisible(false);
+        clearBtn.setVisible(true);
+        saveBtn.setVisible(true);
+        loadBtn.setVisible(true);
+        searchBtn.setVisible(false);
     }//GEN-LAST:event_donateRbActionPerformed
-
-    private void histRbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_histRbActionPerformed
-        // TODO add your handling code here:
-        nameLbl.setVisible(true);
-        nameTf.setVisible(true);
-        dobLbl.setVisible(false);
-        dobTf.setVisible(false);
-        amountLbl.setVisible(false);
-        amountTf.setVisible(false);
-        historyLbl.setVisible(true);
-        historyTa.setVisible(true);
-        donateBtn.setVisible(false);
-        histBtn.setVisible(true);
-        totHistBtn.setVisible(false);
-    }//GEN-LAST:event_histRbActionPerformed
 
     private void totlHistRbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totlHistRbActionPerformed
         // TODO add your handling code here:
@@ -487,8 +501,15 @@ public class DonationGUI extends javax.swing.JFrame {
         historyLbl.setVisible(true);
         historyTa.setVisible(true);
         donateBtn.setVisible(false);
-        histBtn.setVisible(false);
+        //histBtn.setVisible(false);
         totHistBtn.setVisible(true);
+        searchLbl.setVisible(true);
+        searchTf.setVisible(true);
+        searchBtn.setVisible(true);
+        clearBtn.setVisible(true);
+        saveBtn.setVisible(true);
+        loadBtn.setVisible(true);
+        searchBtn.setVisible(true);
     }//GEN-LAST:event_totlHistRbActionPerformed
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
@@ -498,29 +519,51 @@ public class DonationGUI extends javax.swing.JFrame {
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         // TODO add your handling code here:
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("TotalDonationHistory.dat"))) {
-            oos.writeObject(totalDonationHistory.getAllDonations());
+        File f;
+        FileOutputStream fStream;
+        ObjectOutputStream oStream;
+        
+        try{
+            //creat objects for saving to the .dat file
+            f = new File("TotalDonationHistory.dat");
+            fStream = new FileOutputStream(f);
+            oStream = new ObjectOutputStream(fStream);
+            
+            oStream.writeObject(totalDonationHistory);
             historyTa.setText("Total donation history saved successfully.");
+            
         } catch (IOException e) {
-            historyTa.setText("Error saving total donation history: " + e.getMessage());
+            historyTa.setText("Error saving total donation history: " + e);
         }
     }//GEN-LAST:event_saveBtnActionPerformed
 
     private void loadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadBtnActionPerformed
         // TODO add your handling code here:
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("TotalDonationHistory.dat"))) {
-            ArrayList<Donations> loadedDonations = (ArrayList<Donations>) ois.readObject();
-            totalDonationHistory = new TotalDonationHistory();
-            for (Donations donation : loadedDonations) {
-                totalDonationHistory.addDonation(donation.getUserName(), donation.getPassword(),
-                        donation.getDonationAmounts().get(0),
-                        donation.getDob(), donation.getMessage());
+        File f;
+        FileInputStream fStream;
+        ObjectInputStream oStream;
+        
+        
+        try{
+            f = new File("TotalDonationHistory.dat");
+            fStream = new FileInputStream(f);
+            oStream = new ObjectInputStream(fStream);
+            
+            totalDonationHistory = (TotalDonationHistory)oStream.readObject();
+            
+            oStream.close();
+            
+            ArrayList<Donations> allDonations = totalDonationHistory.getAllDonations();
+            
+            //totalDonationHistory = new TotalDonationHistory();
+            for (Donations tdh : allDonations) {
+                historyTa.append("Name:"+tdh.getUserName()+"\nDOB:"+tdh.getDob()+"\n Amount:"+tdh.getdAmount());
             }
             historyTa.setText("Total donation history loaded successfully.");
         } catch (FileNotFoundException e) {
             historyTa.setText("No donation history file found. Starting fresh.");
         } catch (IOException | ClassNotFoundException e) {
-            historyTa.setText("Error loading total donation history: " + e.getMessage());
+            historyTa.setText("Error loading total donation history: " + e);
         }
     }//GEN-LAST:event_loadBtnActionPerformed
 
@@ -530,21 +573,35 @@ public class DonationGUI extends javax.swing.JFrame {
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
         // TODO add your handling code here:
-        String userName = searchTf.getText().trim();
+        /*String userName = searchTf.getText().trim();
 
         if (userName.isEmpty()) {
             historyTa.setText("Please enter a user name to search.");
             return;
         }
 
-        Donations donation = totalDonationHistory.getUserDonation(userName);
+        Donations donation = totalDonationHistory.getUserName();
         if (donation != null) {
             historyTa.setText("Donation History for " + userName + ":\n"
                     + donation.getDonationAmounts().toString());
         } else {
             historyTa.setText("No donation history found for user: " + userName);
-        }
+        }*/
     }//GEN-LAST:event_searchBtnActionPerformed
+
+    private void showBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showBtnActionPerformed
+        // TODO add your handling code here:
+        ArrayList<Donations> allDonations = totalDonationHistory.getAllDonations();
+        
+        if(allDonations.isEmpty()){
+            historyTa.setText("No available history");
+        }
+        else{
+            for (Donations tdh : allDonations) {
+                historyTa.append("Name:"+tdh.getUserName()+"\nDOB:"+tdh.getDob()+"\n Amount:"+tdh.getdAmount());
+            }
+        }
+    }//GEN-LAST:event_showBtnActionPerformed
 
     /* private void setButtonActions() {
     // Action for "Donate" button
@@ -629,8 +686,6 @@ public class DonationGUI extends javax.swing.JFrame {
     private javax.swing.JButton donateBtn;
     private javax.swing.JLabel donateLBL;
     private javax.swing.JRadioButton donateRb;
-    private javax.swing.JButton histBtn;
-    private javax.swing.JRadioButton histRb;
     private javax.swing.JLabel historyLbl;
     private javax.swing.JTextArea historyTa;
     private javax.swing.JButton homeBtn;
@@ -646,6 +701,7 @@ public class DonationGUI extends javax.swing.JFrame {
     private javax.swing.JButton searchBtn;
     private javax.swing.JLabel searchLbl;
     private javax.swing.JTextField searchTf;
+    private javax.swing.JButton showBtn;
     private javax.swing.JButton totHistBtn;
     private javax.swing.JRadioButton totlHistRb;
     private javax.swing.JLabel walletLbl;

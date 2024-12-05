@@ -12,10 +12,10 @@ package charityapp;
 //import java.io.File;
 //import java.io.FileWriter;
 //import java.io.IOException;
-import java.util.ArrayList;
+/*import java.util.ArrayList;
 //import java.util.List;
 
-public class DonationHistory {
+public class DonationHistory extends Charity{
     
     //declaried variable
     private ArrayList<String> donationHistory; //ArrayList that stores strings representing the donation history for a user
@@ -31,7 +31,7 @@ public class DonationHistory {
     /*public void addEmployee(Employee employee) {
         employees.add(employee); 
     }*/
-    public void addDonationEntry(String newRecord) {
+    /*public void addDonationEntry(String newRecord) {
         donationHistory.add(newRecord);
         //updateDonationFile();
     }
@@ -74,7 +74,7 @@ public class DonationHistory {
     /*public ArrayList<String> getTasks() {
         return tasks;
     }*/
-     public ArrayList<String> getHistory() {
+     /*public ArrayList<String> getHistory() {
         return donationHistory;
     }
 
@@ -87,7 +87,7 @@ public class DonationHistory {
         }
         return sb.toString();
         }*/
-    public String displayHistory() {
+   /* public String displayHistory() {
         if (donationHistory.isEmpty()) {
             return "No donation history available.";
         }
@@ -97,5 +97,5 @@ public class DonationHistory {
         }
         return sb.toString();
     }
-}
+}*/
 
