@@ -6,7 +6,7 @@ package charityapp;
 
 /**
  *
- * @author damie
+ * @author Bogdan Postolachi
  */
 public class CharityApp {
 

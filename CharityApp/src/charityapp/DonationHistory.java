@@ -16,12 +16,21 @@ import java.util.ArrayList;
 //import java.util.List;
 
 public class DonationHistory {
-    private ArrayList<String> donationHistory;
+    
+    //declaried variable
+    private ArrayList<String> donationHistory; //ArrayList that stores strings representing the donation history for a user
 
+    //default constructor
+    //this. used to refer to the instance variable
     public DonationHistory() {
         this.donationHistory = new ArrayList<>();
     }
 
+    //Adds the newRecord string to the donationHistory list
+    //Code from lectures used: 
+    /*public void addEmployee(Employee employee) {
+        employees.add(employee); 
+    }*/
     public void addDonationEntry(String newRecord) {
         donationHistory.add(newRecord);
         //updateDonationFile();
@@ -60,10 +69,24 @@ public class DonationHistory {
     }*/
     
     
+    //provides access to the donationHistory list
+    //code from ToDoApp in lectures used:
+    /*public ArrayList<String> getTasks() {
+        return tasks;
+    }*/
      public ArrayList<String> getHistory() {
         return donationHistory;
     }
 
+     //returnes formatted string representation of all the donation records stored in the donationHistory list
+     //Code from ToDoApp used:
+     /*public String displayTasks() {
+        StringBuilder sb = new StringBuilder("Tasks:\n");
+        for (String task : tasks) {
+            sb.append(task).append("\n");
+        }
+        return sb.toString();
+        }*/
     public String displayHistory() {
         if (donationHistory.isEmpty()) {
             return "No donation history available.";
