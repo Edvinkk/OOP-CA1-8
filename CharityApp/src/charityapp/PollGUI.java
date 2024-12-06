@@ -209,7 +209,9 @@ public class PollGUI extends javax.swing.JFrame {
         pollTa.setRows(5);
         jScrollPane1.setViewportView(pollTa);
 
-        favourBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        favourBtn.setBackground(new java.awt.Color(0, 51, 51));
+        favourBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        favourBtn.setForeground(new java.awt.Color(0, 255, 102));
         favourBtn.setText("In favour");
         favourBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -217,7 +219,9 @@ public class PollGUI extends javax.swing.JFrame {
             }
         });
 
-        againstBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        againstBtn.setBackground(new java.awt.Color(0, 51, 51));
+        againstBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        againstBtn.setForeground(new java.awt.Color(0, 255, 102));
         againstBtn.setText("Against");
         againstBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,7 +241,7 @@ public class PollGUI extends javax.swing.JFrame {
                         .addComponent(favourBtn)
                         .addGap(66, 66, 66)
                         .addComponent(againstBtn)
-                        .addContainerGap(126, Short.MAX_VALUE))
+                        .addContainerGap(106, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1)
@@ -266,7 +270,7 @@ public class PollGUI extends javax.swing.JFrame {
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(favourBtn)
                     .addComponent(againstBtn))
-                .addContainerGap(213, Short.MAX_VALUE))
+                .addContainerGap(215, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

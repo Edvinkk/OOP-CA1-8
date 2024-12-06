@@ -69,7 +69,7 @@ public class RaffleGUI extends javax.swing.JFrame {
         raffleLbl.setText("Raffle Page");
 
         charityBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        charityBtn.setForeground(new java.awt.Color(0, 255, 102));
+        charityBtn.setForeground(new java.awt.Color(0, 51, 51));
         charityBtn.setText("Home");
         charityBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,7 +78,7 @@ public class RaffleGUI extends javax.swing.JFrame {
         });
 
         donationBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        donationBtn.setForeground(new java.awt.Color(0, 255, 102));
+        donationBtn.setForeground(new java.awt.Color(0, 51, 51));
         donationBtn.setText("Donation");
         donationBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,7 +87,7 @@ public class RaffleGUI extends javax.swing.JFrame {
         });
 
         pollBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        pollBtn.setForeground(new java.awt.Color(0, 255, 102));
+        pollBtn.setForeground(new java.awt.Color(0, 51, 51));
         pollBtn.setText("Poll");
         pollBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
