@@ -84,13 +84,12 @@ public class RaffleGame extends Charity{
         myR.setResult(userNumber == number);//check if it matches with the winning number
         
         //Use variable Username from the Charity parent class
-        if(userName.isEmpty()){
-            myR.setName(userName);
-        }
-        else{
-           //if userName is empty use "Damien"
+        /*if(userName.isEmpty()){
             myR.setName("Damien");
         }
+        else {
+            myR.setName(userName);
+        }*/
         
         if(userNumber== number){
             result =true; 

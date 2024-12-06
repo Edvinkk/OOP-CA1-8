@@ -366,7 +366,7 @@ public class RaffleGUI extends javax.swing.JFrame {
         }
         else{
             for(RaffleResult result : history){//for each result in history array
-                historyTa.append("Name: "+result.getName()+"\nEntry Number: "+result.getUserNumber()+"\nStatus: "+(result.isResult()?"Won": "Lost")+"\n\n");
+                historyTa.append("Entry Number: "+result.getUserNumber()+"\nStatus: "+(result.isResult()?"Won": "Lost")+"\n\n");
             }
         }
         
@@ -412,7 +412,7 @@ public class RaffleGUI extends javax.swing.JFrame {
             raffleG.computeRaffle();
             
             //create msg to show if user won or lost
-            String msg = raffleG.isResult() ?"Congrats! You Won the Raffle!" : "Hard Luck! "+raffleG.getNumber()+" Is the Winning Number.";
+            String msg = raffleG.isResult() ?"Congrats! You Won the Raffle, A Trip to help Haiti!" : "Hard Luck! "+raffleG.getNumber()+" Is the Winning Number.";
             //Display result in a pop-up
             JOptionPane.showMessageDialog(null, msg);
         }
