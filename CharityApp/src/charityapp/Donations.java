@@ -43,7 +43,7 @@ public class Donations extends Charity {
     
     
     //overloaded constructor
-    public Donations(String userName, String password, double dAmount, String dob, String message) {
+    public Donations(String userName, String password,String name, double dAmount, String dob, String message) {
         super(userName, password); //call for superclass constructor
         this.name = name;
         //this.donationAmounts = donationAmounts;
@@ -119,7 +119,7 @@ public class Donations extends Charity {
     
     //@Override
     public String getDetails() {
-        return "User: " + userName + ", DOB: " + dob + "Message:" + message + "Your Donation Was: €" + dAmount;
+        return "User: " + userName + "Name:" + name +", DOB: " + dob + "Message:" + message + "Your Donation Was: €" + dAmount;
     }
 
    

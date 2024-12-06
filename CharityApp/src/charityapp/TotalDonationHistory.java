@@ -26,17 +26,17 @@ public class TotalDonationHistory extends Charity {
     
 
     // add new user's donation
-    public void addDonation(String userName, String password, double amount, String dob, String message) {
+    public void addDonation(String name, double amount, String dob, String message) {
         // check if user already exists
         for (Donations donation : allDonations) {
-            if (donation.getUserName().equalsIgnoreCase(userName)) {
+            if (donation.getName().equalsIgnoreCase(name)) {
                 donation.addDonation(amount);  // Update existing user's donation
                 return;
             }
         }
 
         // add new user with their first donation
-        Donations newDonation = new Donations(userName, password, amount, dob, message);
+        Donations newDonation = new Donations(userName, password, name, amount, dob, message);
         allDonations.add(newDonation);
     }
     

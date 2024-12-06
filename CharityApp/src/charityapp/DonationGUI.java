@@ -25,6 +25,7 @@ public class DonationGUI extends javax.swing.JFrame {
     //private final DonationHistory donationHistory;
     private TotalDonationHistory totalDonationHistory;
     private ArrayList<Donations> allDonations;
+   // private String searchTerm;
 
     /**
      * Creates new form DonationGUI
@@ -38,7 +39,7 @@ public class DonationGUI extends javax.swing.JFrame {
 
     }
 
-    //Default empty fields
+    //resets fields to empty
     private void clearFields() {
         nameTf.setText(" ");
         dobTf.setText(" ");
@@ -79,10 +80,8 @@ public class DonationGUI extends javax.swing.JFrame {
         clearBtn = new javax.swing.JButton();
         loadBtn = new javax.swing.JButton();
         saveBtn = new javax.swing.JButton();
-        searchTf = new javax.swing.JTextField();
-        searchLbl = new javax.swing.JLabel();
-        searchBtn = new javax.swing.JButton();
         showBtn = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -161,6 +160,7 @@ public class DonationGUI extends javax.swing.JFrame {
         );
 
         buttonGroup1.add(donateRb);
+        donateRb.setSelected(true);
         donateRb.setText("Donate");
         donateRb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -264,26 +264,6 @@ public class DonationGUI extends javax.swing.JFrame {
             }
         });
 
-        searchTf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchTfActionPerformed(evt);
-            }
-        });
-
-        searchLbl.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        searchLbl.setForeground(new java.awt.Color(0, 255, 102));
-        searchLbl.setText("Search:");
-
-        searchBtn.setBackground(new java.awt.Color(0, 0, 0));
-        searchBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        searchBtn.setForeground(new java.awt.Color(0, 255, 102));
-        searchBtn.setText("Search");
-        searchBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBtnActionPerformed(evt);
-            }
-        });
-
         showBtn.setBackground(new java.awt.Color(0, 0, 0));
         showBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         showBtn.setForeground(new java.awt.Color(0, 255, 102));
@@ -291,6 +271,16 @@ public class DonationGUI extends javax.swing.JFrame {
         showBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showBtnActionPerformed(evt);
+            }
+        });
+
+        deleteBtn.setBackground(new java.awt.Color(0, 0, 0));
+        deleteBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        deleteBtn.setForeground(new java.awt.Color(0, 255, 102));
+        deleteBtn.setText("Delete");
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
             }
         });
 
@@ -326,21 +316,15 @@ public class DonationGUI extends javax.swing.JFrame {
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(amountLbl)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE)))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)))
                                         .addComponent(donateBtn)
-                                        .addGap(116, 116, 116))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(searchLbl)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                                        .addComponent(searchTf, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(27, 27, 27)
-                                        .addComponent(searchBtn)
-                                        .addGap(120, 120, 120)))
+                                        .addGap(116, 116, 116)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(saveBtn)
                                     .addComponent(showBtn)
                                     .addComponent(clearBtn)
-                                    .addComponent(loadBtn)))
+                                    .addComponent(loadBtn)
+                                    .addComponent(deleteBtn)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(176, 176, 176)
                                 .addComponent(donateRb, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -363,17 +347,20 @@ public class DonationGUI extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(donateRb)
                     .addComponent(totlHistRb))
-                .addGap(49, 49, 49)
+                .addGap(52, 52, 52)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nameTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nameLbl)
-                    .addComponent(clearBtn))
+                    .addComponent(nameLbl))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(clearBtn)
+                .addGap(18, 18, 18)
+                .addComponent(deleteBtn)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dobLbl)
@@ -387,12 +374,7 @@ public class DonationGUI extends javax.swing.JFrame {
                     .addComponent(saveBtn))
                 .addGap(18, 18, 18)
                 .addComponent(loadBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchLbl)
-                    .addComponent(searchTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchBtn))
-                .addGap(53, 53, 53)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                 .addComponent(historyLbl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -409,7 +391,7 @@ public class DonationGUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
         );
 
         pack();
@@ -439,12 +421,14 @@ public class DonationGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         //ensuring the input is clean and ready for use
         //nameTf.getText() retrieves the text entered by the user in the nameTf text field
-        String userName = nameTf.getText().trim(); //trim() method removes whitespace from both ends of a string, idea to use from( https://www.w3schools.com/java/ref_string_trim.asp )
+        String name = nameTf.getText().trim(); //trim() method removes whitespace from both ends of a string, idea to use from( https://www.w3schools.com/java/ref_string_trim.asp )
         String dob = dobTf.getText().trim(); //trim() prevents accidental white spaces in strings
         String amountText = amountTf.getText().trim();
-
+        
+        
+        
         //check if any of the input fields are empty.
-        if (userName.isEmpty() || dob.isEmpty() || amountText.isEmpty()) {
+        if (name.isEmpty() || dob.isEmpty() || amountText.isEmpty()) {
             historyTa.setText("All fields are required to donate.");
             return; //return statement prevents the statement runing 
         }
@@ -453,10 +437,10 @@ public class DonationGUI extends javax.swing.JFrame {
         //try-catch block to manage potential errors that may occur when parsing the donation amount
         try {   //try statement allows to define a block of code to be tested for errors while it is being executed ( https://www.w3schools.com/java/java_try_catch.asp)
             double amount = Double.parseDouble(amountText); //ensures that entered donation amount is a valid numeric value
-            String message = "Thank you for your generous support!"; //default message for the donor
-            totalDonationHistory.addDonation(userName, "defaultPassword", amount, dob, message); //adds donation details to the total donation history
+            String message = "Thank you for your generous support!\n"; //default message for the donor
+            totalDonationHistory.addDonation(name, amount, dob, message); //adds donation details to the total donation history
 
-            historyTa.setText("Thank you for your donation, " + userName + "!"); //thank you mesage displayed on the text area
+            historyTa.setText("Thank you for your donation, " + name +"!"); //thank you mesage displayed on the text area
         } catch (NumberFormatException ex) {  //catch statement allows to define a block of code to be executed, if an error occurs in the try block ( https://www.w3schools.com/java/java_try_catch.asp )
             historyTa.setText("Please enter a valid donation amount.");
         }
@@ -499,13 +483,13 @@ public class DonationGUI extends javax.swing.JFrame {
         donateBtn.setVisible(true);
         //histBtn.setVisible(false);
         totHistBtn.setVisible(false);
-        searchLbl.setVisible(false);
-        searchTf.setVisible(false);
-        searchBtn.setVisible(false);
+        //searchLbl.setVisible(false);
+        //searchTf.setVisible(false);
+        //searchBtn.setVisible(false);
         clearBtn.setVisible(true);
         saveBtn.setVisible(true);
         loadBtn.setVisible(true);
-        searchBtn.setVisible(false);
+        //searchBtn.setVisible(false);
     }//GEN-LAST:event_donateRbActionPerformed
 
     private void totlHistRbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totlHistRbActionPerformed
@@ -522,13 +506,13 @@ public class DonationGUI extends javax.swing.JFrame {
         donateBtn.setVisible(false);
         //histBtn.setVisible(false);
         totHistBtn.setVisible(true);
-        searchLbl.setVisible(true);
-        searchTf.setVisible(true);
-        searchBtn.setVisible(true);
+        //searchLbl.setVisible(true);
+        //searchTf.setVisible(true);
+        //searchBtn.setVisible(true);
         clearBtn.setVisible(true);
         saveBtn.setVisible(true);
         loadBtn.setVisible(true);
-        searchBtn.setVisible(true);
+        //searchBtn.setVisible(true);
     }//GEN-LAST:event_totlHistRbActionPerformed
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
@@ -584,7 +568,7 @@ public class DonationGUI extends javax.swing.JFrame {
             //totalDonationHistory = new TotalDonationHistory();
             
             for (Donations tdh : allDonations) {
-                historyTa.append("Name:"+tdh.getUserName()+"\nDOB:"+tdh.getDob()+"\n Amount:"+tdh.getdAmount()); //adding details to text area
+                historyTa.append("User Name: "+tdh.getUserName()+"\nName:"+tdh.getUserName()+"\nDOB:"+tdh.getDob()+"\n Amount:"+tdh.getdAmount()); //adding details to text area
             }
             historyTa.setText("Total donation history loaded successfully."); //success statement
         } catch (FileNotFoundException e) {
@@ -593,52 +577,6 @@ public class DonationGUI extends javax.swing.JFrame {
             historyTa.setText("Error loading total donation history: " + e); //error message
         }
     }//GEN-LAST:event_loadBtnActionPerformed
-
-    private void searchTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchTfActionPerformed
-
-    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
-        // TODO add your handling code here:
-        
-    //getting text from searchTf    
-    String name = searchTf.getText().trim();
-
-    if (name.isEmpty()) { //checking if userName is empty
-        historyTa.setText("Please enter a valid username."); //error message
-        //return;
-    }
-    else if(name != null){
-        String searchTerm = searchTf.getText();
-        //traverses the Array
-        for(Donations tdh : allDonations){
-            if(tdh.getName().equalsIgnoreCase(searchTerm)){
-                historyTa.append("Donation History for " + name + ":\n");
-                
-            }
-        }
-    }
-    else{
-        historyTa.setText("No donation history found for user: " + name);
-    }
-
-    /*Donations userDonation = null;
-    for (Donations donation : totalDonationHistory.getAllDonations()) {
-        if (donation.getUserName().equalsIgnoreCase(name)) {
-            userDonation = donation;
-            break;
-        }
-    }
-
-    if (userDonation != null) { //if matching userDonation is found
-        historyTa.setText("Donation History for " + name + ":\n");
-        for (Double amount : userDonation.getDonationAmounts()) {
-            historyTa.append("€" + amount + "\n");
-        }
-    } else {
-        historyTa.setText("No donation history found for user: " + name);
-    }*/
-    }//GEN-LAST:event_searchBtnActionPerformed
 
     private void showBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showBtnActionPerformed
         // TODO add your handling code here:
@@ -650,11 +588,29 @@ public class DonationGUI extends javax.swing.JFrame {
             historyTa.setText("No available history");
         }
         else{
+            
             for (Donations tdh : allDonations) {
-                historyTa.append("Name:"+tdh.getName()+"\nDOB:"+tdh.getDob()+"\n Amount:"+tdh.getdAmount());
+                historyTa.append("\nName:"+tdh.getName()+"\nDOB:"+tdh.getDob()+"\n Amount:"+tdh.getdAmount());
             }
         }
     }//GEN-LAST:event_showBtnActionPerformed
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        // TODO add your handling code here:
+        /*if(allDonations.isEmpty()){
+            JOptionPane.showMessageDialog(null,"Sorry, there are no employees in the system");
+        }
+        else{
+            String searchTerm = nameTf.getText();
+            for(int i = 0; i < allDonations.size();i++){
+                Donations d = allDonations.get(i);
+                if(d.getName().equalsIgnoreCase(searchTerm)){
+                    allDonations.remove(d);
+                }
+            }
+        }
+        clearFields();*/
+    }//GEN-LAST:event_deleteBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -694,6 +650,7 @@ public class DonationGUI extends javax.swing.JFrame {
     private javax.swing.JTextField amountTf;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton clearBtn;
+    private javax.swing.JButton deleteBtn;
     private javax.swing.JLabel dobLbl;
     private javax.swing.JTextField dobTf;
     private javax.swing.JButton donateBtn;
@@ -711,9 +668,6 @@ public class DonationGUI extends javax.swing.JFrame {
     private javax.swing.JButton pollBtn;
     private javax.swing.JButton raffleBtn;
     private javax.swing.JButton saveBtn;
-    private javax.swing.JButton searchBtn;
-    private javax.swing.JLabel searchLbl;
-    private javax.swing.JTextField searchTf;
     private javax.swing.JButton showBtn;
     private javax.swing.JButton totHistBtn;
     private javax.swing.JRadioButton totlHistRb;
