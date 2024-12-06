@@ -85,11 +85,11 @@ public class RaffleGame extends Charity{
         
         //Use variable Username from the Charity parent class
         if(userName.isEmpty()){
-            //if userName is empty use "Damien"
-            myR.setName("Damien");
+            myR.setName(userName);
         }
         else{
-            myR.setName(userName);
+           //if userName is empty use "Damien"
+            myR.setName("Damien");
         }
         
         if(userNumber== number){
