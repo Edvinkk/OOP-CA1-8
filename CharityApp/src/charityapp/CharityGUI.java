@@ -4,11 +4,18 @@
  */
 package charityapp;
 
+import java.util.ArrayList;
+
 /**
  *
- * @author damie
+ * @author Edvin
  */
 public class CharityGUI extends javax.swing.JFrame {
+
+    //list to store userss
+    private ArrayList<Charity> users;
+    //to store currenly logged in user
+    private Charity currentUser;
 
     /**
      * Creates new form CharityGUI
@@ -18,7 +25,9 @@ public class CharityGUI extends javax.swing.JFrame {
         donateBtn.setVisible(false);
         raffleBtn.setVisible(false);
         pollBtn.setVisible(false);
-        
+
+        //load users from a file
+        users = Charity.loadUsers();
     }
 
     /**
@@ -226,10 +235,56 @@ public class CharityGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_donateBtnActionPerformed
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-        raffleBtn.setVisible(true);
-        donateBtn.setVisible(true);
-        pollBtn.setVisible(true);
+        String username = usernameTf.getText();
+        String password = passwordTf.getText();
+
+        if (loginRb.isSelected()) {
+            // Login logic
+            if (login(username, password)) {
+                // If login is successful, show the donation, raffle, and poll buttons
+                donateBtn.setVisible(true);
+                raffleBtn.setVisible(true);
+                pollBtn.setVisible(true);
+            } else {
+                // Show an error message
+                javax.swing.JOptionPane.showMessageDialog(this, "Invalid username or password.");
+            }
+        } else if (registerRb.isSelected()) {
+            // Registration logic
+            if (usernameExists(username)) {
+                // Show an error message if username already exists
+                javax.swing.JOptionPane.showMessageDialog(this, "Username already exists.");
+            } else {
+                // Register a new user
+                Charity newUser = new Charity(username, password);
+                users.add(newUser);  // Add the new user to the list
+                Charity.saveUsers(users);  // Save the updated list to a file
+
+                javax.swing.JOptionPane.showMessageDialog(this, "Registration successful!");
+            }
+        }
     }//GEN-LAST:event_submitBtnActionPerformed
+
+    private boolean login(String username, String password) {
+        // Loop through the users list and check if there's a match for username and password
+        for (Charity user : users) {
+            if (user.getUserName().equals(username) && user.getPassword().equals(password)) {
+                currentUser = user;  // Set the current logged in user
+                return true;  // Login successful
+            }
+        }
+        return false;  // Login failed
+    }
+
+    private boolean usernameExists(String username) {
+        // Check if the username already exists
+        for (Charity user : users) {
+            if (user.getUserName().equals(username)) {
+                return true;  // Username exists
+            }
+        }
+        return false;  // Username does not exist
+    }
 
     /**
      * @param args the command line arguments
