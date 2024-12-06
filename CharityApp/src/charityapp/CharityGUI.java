@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -334,16 +335,16 @@ public class CharityGUI extends javax.swing.JFrame {
                 raffleBtn.setVisible(true);
                 pollBtn.setVisible(true);
             } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "Invalid username or password.");
+                JOptionPane.showMessageDialog(this, "Invalid username or password.");
             }
         } else if (registerRb.isSelected()) {
             if (usernameExists(username, users)) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Username already exists.");
+                JOptionPane.showMessageDialog(this, "Username already exists.");
             } else {
                 Charity newUser = new Charity(username, password);
                 users.add(newUser);
                 saveUsers(users);
-                javax.swing.JOptionPane.showMessageDialog(this, "Registration successful!");
+                JOptionPane.showMessageDialog(this, "Registration successful!");
             }
         }
     }//GEN-LAST:event_submitBtnActionPerformed
