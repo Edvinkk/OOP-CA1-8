@@ -8,7 +8,7 @@ package charityapp;
  *
  * @author damie
  */
-public class RaffleResult extends Charity{
+public class RaffleResult extends Charity {
     //declare data types
     private String name;
     private int userNumber;
@@ -16,7 +16,8 @@ public class RaffleResult extends Charity{
 
     //default constructor
     public RaffleResult() {
-        name = new String();
+        super();
+        name = "";
         userNumber = 0;
         result = false;
     }
@@ -24,18 +25,18 @@ public class RaffleResult extends Charity{
     //Overloaded constructor
     public RaffleResult(String userName, String password, String name, int userNumber, boolean result) {
         super(userName, password);
-        this.name = name;
+         this.name = name;
         this.userNumber = userNumber;
         this.result = result;
     }
 
     //Getters and Setters
     public String getName() {
-        return name;
+        return name;   
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name;  
     }
 
     public int getUserNumber() {
@@ -53,5 +54,5 @@ public class RaffleResult extends Charity{
     public void setResult(boolean result) {
         this.result = result;
     }
-   
+
 }
