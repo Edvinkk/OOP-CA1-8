@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,7 +23,6 @@ public class CharityGUI extends javax.swing.JFrame {
     private ArrayList<Charity> users;
 
     
-    
 
     /**
      * Creates new form CharityGUI
@@ -32,7 +32,6 @@ public class CharityGUI extends javax.swing.JFrame {
         donateBtn.setVisible(false);
         raffleBtn.setVisible(false);
         pollBtn.setVisible(false);
-
         //load users from a file
         users = loadUsers();
     }
@@ -72,6 +71,8 @@ public class CharityGUI extends javax.swing.JFrame {
         try {
             //Checks if the file exists before attempting to load data
             f = new File("users.dat");
+            
+            
 
             if (f.exists()) {
                 fStream = new FileInputStream(f);
@@ -216,6 +217,7 @@ public class CharityGUI extends javax.swing.JFrame {
 
         typeGrp.add(loginRb);
         loginRb.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        loginRb.setSelected(true);
         loginRb.setText("Log in");
 
         typeGrp.add(registerRb);
@@ -244,7 +246,7 @@ public class CharityGUI extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(178, 178, 178)
                                         .addComponent(submitBtn)))
-                                .addGap(0, 153, Short.MAX_VALUE))
+                                .addGap(0, 155, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(registerRb)))
@@ -324,23 +326,25 @@ public class CharityGUI extends javax.swing.JFrame {
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         String username = usernameTf.getText();
         String password = passwordTf.getText();
-
+  
+        
+        
         if (loginRb.isSelected()) {
             if (validateLogin(username, password, users)) {
                 donateBtn.setVisible(true);
                 raffleBtn.setVisible(true);
                 pollBtn.setVisible(true);
             } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "Invalid username or password.");
+                JOptionPane.showMessageDialog(this, "Invalid username or password.");
             }
         } else if (registerRb.isSelected()) {
             if (usernameExists(username, users)) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Username already exists.");
+                JOptionPane.showMessageDialog(this, "Username already exists.");
             } else {
                 Charity newUser = new Charity(username, password);
                 users.add(newUser);
                 saveUsers(users);
-                javax.swing.JOptionPane.showMessageDialog(this, "Registration successful!");
+                JOptionPane.showMessageDialog(this, "Registration successful!");
             }
         }
     }//GEN-LAST:event_submitBtnActionPerformed

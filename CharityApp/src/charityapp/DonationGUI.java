@@ -24,6 +24,8 @@ public class DonationGUI extends javax.swing.JFrame {
     private final Donations donation;
     //private final DonationHistory donationHistory;
     private TotalDonationHistory totalDonationHistory;
+    private ArrayList<Donations> allDonations;
+   // private String searchTerm;
 
     /**
      * Creates new form DonationGUI
@@ -37,7 +39,7 @@ public class DonationGUI extends javax.swing.JFrame {
 
     }
 
-    //Default empty fields
+    //resets fields to empty
     private void clearFields() {
         nameTf.setText(" ");
         dobTf.setText(" ");
@@ -55,7 +57,7 @@ public class DonationGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jPanel1 = new javax.swing.JPanel();
+        deleteTf = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         donateLBL = new javax.swing.JLabel();
         homeBtn = new javax.swing.JButton();
@@ -78,16 +80,17 @@ public class DonationGUI extends javax.swing.JFrame {
         clearBtn = new javax.swing.JButton();
         loadBtn = new javax.swing.JButton();
         saveBtn = new javax.swing.JButton();
-        searchTf = new javax.swing.JTextField();
-        searchLbl = new javax.swing.JLabel();
-        searchBtn = new javax.swing.JButton();
         showBtn = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
+        deleteLbl = new javax.swing.JLabel();
+        deleteField = new javax.swing.JTextField();
+        deleteLbl1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
-        jPanel1.setForeground(new java.awt.Color(51, 153, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(753, 511));
+        deleteTf.setBackground(new java.awt.Color(51, 153, 255));
+        deleteTf.setForeground(new java.awt.Color(51, 153, 255));
+        deleteTf.setPreferredSize(new java.awt.Dimension(753, 511));
 
         jPanel2.setBackground(new java.awt.Color(0, 51, 51));
         jPanel2.setPreferredSize(new java.awt.Dimension(190, 500));
@@ -263,26 +266,6 @@ public class DonationGUI extends javax.swing.JFrame {
             }
         });
 
-        searchTf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchTfActionPerformed(evt);
-            }
-        });
-
-        searchLbl.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        searchLbl.setForeground(new java.awt.Color(0, 255, 102));
-        searchLbl.setText("Search:");
-
-        searchBtn.setBackground(new java.awt.Color(0, 0, 0));
-        searchBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        searchBtn.setForeground(new java.awt.Color(0, 255, 102));
-        searchBtn.setText("Search");
-        searchBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBtnActionPerformed(evt);
-            }
-        });
-
         showBtn.setBackground(new java.awt.Color(0, 0, 0));
         showBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         showBtn.setForeground(new java.awt.Color(0, 255, 102));
@@ -293,105 +276,133 @@ public class DonationGUI extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        deleteBtn.setBackground(new java.awt.Color(0, 0, 0));
+        deleteBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        deleteBtn.setForeground(new java.awt.Color(0, 255, 102));
+        deleteBtn.setText("Delete");
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
+
+        deleteLbl.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        deleteLbl.setForeground(new java.awt.Color(255, 51, 51));
+        deleteLbl.setText("If you need to delete a record type the name here ");
+
+        deleteField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteFieldActionPerformed(evt);
+            }
+        });
+
+        deleteLbl1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        deleteLbl1.setForeground(new java.awt.Color(0, 255, 102));
+        deleteLbl1.setText("Delete:");
+
+        javax.swing.GroupLayout deleteTfLayout = new javax.swing.GroupLayout(deleteTf);
+        deleteTf.setLayout(deleteTfLayout);
+        deleteTfLayout.setHorizontalGroup(
+            deleteTfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(deleteTfLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(dobLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(nameLbl)
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                            .addComponent(amountTf, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                                                            .addComponent(dobTf))
-                                                        .addGap(51, 51, 51))
-                                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                        .addComponent(nameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(amountLbl)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE)))
-                                        .addComponent(donateBtn)
-                                        .addGap(116, 116, 116))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(searchLbl)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                                        .addComponent(searchTf, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(27, 27, 27)
-                                        .addComponent(searchBtn)
-                                        .addGap(120, 120, 120)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(saveBtn)
-                                    .addComponent(showBtn)
-                                    .addComponent(clearBtn)
-                                    .addComponent(loadBtn)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(deleteTfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(deleteTfLayout.createSequentialGroup()
+                        .addGroup(deleteTfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(deleteTfLayout.createSequentialGroup()
                                 .addGap(176, 176, 176)
                                 .addComponent(donateRb, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
-                                .addComponent(totlHistRb)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGroup(deleteTfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(deleteBtn)
+                                    .addComponent(totlHistRb)
+                                    .addComponent(donateBtn))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(deleteTfLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(deleteTfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(deleteTfLayout.createSequentialGroup()
+                                        .addGroup(deleteTfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(deleteTfLayout.createSequentialGroup()
+                                                .addGroup(deleteTfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(nameLbl)
+                                                    .addGroup(deleteTfLayout.createSequentialGroup()
+                                                        .addGap(6, 6, 6)
+                                                        .addComponent(deleteLbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(deleteTfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(nameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(deleteField, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(deleteTfLayout.createSequentialGroup()
+                                                .addComponent(dobLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(39, 39, 39)
+                                                .addComponent(dobTf, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(deleteLbl))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(deleteTfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(saveBtn)
+                                            .addComponent(showBtn)
+                                            .addComponent(clearBtn)
+                                            .addComponent(loadBtn)))
+                                    .addGroup(deleteTfLayout.createSequentialGroup()
+                                        .addComponent(amountLbl)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(amountTf, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
                         .addGap(26, 26, 26))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(deleteTfLayout.createSequentialGroup()
+                        .addGroup(deleteTfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(deleteTfLayout.createSequentialGroup()
                                 .addGap(196, 196, 196)
                                 .addComponent(totHistBtn))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(88, 88, 88)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(deleteTfLayout.createSequentialGroup()
                                 .addGap(247, 247, 247)
-                                .addComponent(historyLbl)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(historyLbl))
+                            .addGroup(deleteTfLayout.createSequentialGroup()
+                                .addGap(88, 88, 88)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(105, Short.MAX_VALUE))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        deleteTfLayout.setVerticalGroup(
+            deleteTfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+            .addGroup(deleteTfLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(deleteTfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(donateRb)
                     .addComponent(totlHistRb))
-                .addGap(49, 49, 49)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(52, 52, 52)
+                .addGroup(deleteTfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nameTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nameLbl)
-                    .addComponent(clearBtn))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dobLbl)
-                    .addComponent(dobTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(showBtn))
-                .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(amountLbl)
+                    .addComponent(nameLbl))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(clearBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(deleteTfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(deleteTfLayout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(showBtn)
+                        .addGap(21, 21, 21)
+                        .addComponent(saveBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(loadBtn))
+                    .addGroup(deleteTfLayout.createSequentialGroup()
+                        .addGroup(deleteTfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(deleteField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(deleteLbl1)
+                            .addComponent(deleteBtn))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(deleteLbl)
+                        .addGap(51, 51, 51)
+                        .addGroup(deleteTfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dobLbl)
+                            .addComponent(dobTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGroup(deleteTfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(amountTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(donateBtn)
-                    .addComponent(saveBtn))
-                .addGap(18, 18, 18)
-                .addComponent(loadBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchLbl)
-                    .addComponent(searchTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchBtn))
-                .addGap(53, 53, 53)
+                    .addComponent(amountLbl)
+                    .addComponent(donateBtn))
+                .addGap(22, 22, 22)
                 .addComponent(historyLbl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -404,11 +415,11 @@ public class DonationGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
+            .addComponent(deleteTf, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
+            .addComponent(deleteTf, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
         );
 
         pack();
@@ -438,12 +449,14 @@ public class DonationGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         //ensuring the input is clean and ready for use
         //nameTf.getText() retrieves the text entered by the user in the nameTf text field
-        String userName = nameTf.getText().trim(); //trim() method removes whitespace from both ends of a string, idea to use from( https://www.w3schools.com/java/ref_string_trim.asp )
+        String name = nameTf.getText().trim(); //trim() method removes whitespace from both ends of a string, idea to use from( https://www.w3schools.com/java/ref_string_trim.asp )
         String dob = dobTf.getText().trim(); //trim() prevents accidental white spaces in strings
         String amountText = amountTf.getText().trim();
-
+        
+        
+        
         //check if any of the input fields are empty.
-        if (userName.isEmpty() || dob.isEmpty() || amountText.isEmpty()) {
+        if (name.isEmpty() || dob.isEmpty() || amountText.isEmpty()) {
             historyTa.setText("All fields are required to donate.");
             return; //return statement prevents the statement runing 
         }
@@ -452,10 +465,10 @@ public class DonationGUI extends javax.swing.JFrame {
         //try-catch block to manage potential errors that may occur when parsing the donation amount
         try {   //try statement allows to define a block of code to be tested for errors while it is being executed ( https://www.w3schools.com/java/java_try_catch.asp)
             double amount = Double.parseDouble(amountText); //ensures that entered donation amount is a valid numeric value
-            String message = "Thank you for your generous support!"; //default message for the donor
-            totalDonationHistory.addDonation(userName, "defaultPassword", amount, dob, message); //adds donation details to the total donation history
+            String message = "Thank you for your generous support!\n"; //default message for the donor
+            totalDonationHistory.addDonation(name, amount, dob, message); //adds donation details to the total donation history
 
-            historyTa.setText("Thank you for your donation, " + userName + "!"); //thank you mesage displayed on the text area
+            historyTa.setText("Thank you for your donation, " + name +"!"); //thank you mesage displayed on the text area
         } catch (NumberFormatException ex) {  //catch statement allows to define a block of code to be executed, if an error occurs in the try block ( https://www.w3schools.com/java/java_try_catch.asp )
             historyTa.setText("Please enter a valid donation amount.");
         }
@@ -498,13 +511,17 @@ public class DonationGUI extends javax.swing.JFrame {
         donateBtn.setVisible(true);
         //histBtn.setVisible(false);
         totHistBtn.setVisible(false);
-        searchLbl.setVisible(false);
-        searchTf.setVisible(false);
-        searchBtn.setVisible(false);
+        //searchLbl.setVisible(false);
+        //searchTf.setVisible(false);
+        //searchBtn.setVisible(false);
         clearBtn.setVisible(true);
         saveBtn.setVisible(true);
         loadBtn.setVisible(true);
-        searchBtn.setVisible(false);
+        //searchBtn.setVisible(false);
+        deleteLbl.setVisible(false);
+        deleteLbl1.setVisible(false);
+        deleteField.setVisible(false);
+        deleteBtn.setVisible(false);
     }//GEN-LAST:event_donateRbActionPerformed
 
     private void totlHistRbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totlHistRbActionPerformed
@@ -521,13 +538,17 @@ public class DonationGUI extends javax.swing.JFrame {
         donateBtn.setVisible(false);
         //histBtn.setVisible(false);
         totHistBtn.setVisible(true);
-        searchLbl.setVisible(true);
-        searchTf.setVisible(true);
-        searchBtn.setVisible(true);
+        //searchLbl.setVisible(true);
+        //searchTf.setVisible(true);
+        //searchBtn.setVisible(true);
         clearBtn.setVisible(true);
         saveBtn.setVisible(true);
         loadBtn.setVisible(true);
-        searchBtn.setVisible(true);
+        //searchBtn.setVisible(true);
+        deleteLbl.setVisible(true);
+        deleteLbl1.setVisible(true);
+        deleteField.setVisible(true);
+        deleteBtn.setVisible(true);
     }//GEN-LAST:event_totlHistRbActionPerformed
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
@@ -536,10 +557,7 @@ public class DonationGUI extends javax.swing.JFrame {
         clearFields();
     }//GEN-LAST:event_clearBtnActionPerformed
 
-    private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
-        // TODO add your handling code here:
-        //save the totalDonationHistory object to a .dat file
-        
+    private void save(){
         //file creation and object serialization
         File f; 
         FileOutputStream fStream;
@@ -557,6 +575,10 @@ public class DonationGUI extends javax.swing.JFrame {
         } catch (IOException e) {
             historyTa.setText("Error saving total donation history: " + e); //update text area with error message
         }
+    }
+    private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
+        // TODO add your handling code here:
+        save();
     }//GEN-LAST:event_saveBtnActionPerformed
 
     private void loadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadBtnActionPerformed
@@ -578,12 +600,12 @@ public class DonationGUI extends javax.swing.JFrame {
             oStream.close();
             
             //retrieves the list of all donations
-            ArrayList<Donations> allDonations = totalDonationHistory.getAllDonations();
+            allDonations = totalDonationHistory.getAllDonations();
             
             //totalDonationHistory = new TotalDonationHistory();
             
             for (Donations tdh : allDonations) {
-                historyTa.append("Name:"+tdh.getUserName()+"\nDOB:"+tdh.getDob()+"\n Amount:"+tdh.getdAmount()); //adding details to text area
+                historyTa.append("User Name: "+tdh.getUserName()+"\nName:"+tdh.getUserName()+"\nDOB:"+tdh.getDob()+"\n Amount:"+tdh.getdAmount()); //adding details to text area
             }
             historyTa.setText("Total donation history loaded successfully."); //success statement
         } catch (FileNotFoundException e) {
@@ -593,54 +615,44 @@ public class DonationGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_loadBtnActionPerformed
 
-    private void searchTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchTfActionPerformed
-
-    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
-        // TODO add your handling code here:
-        
-    //getting text from searchTf    
-    String userName = searchTf.getText().trim();
-
-    if (userName.isEmpty()) { //checking if userName is empty
-        historyTa.setText("Please enter a valid username."); //error message
-        return;
-    }
-
-    Donations userDonation = null;
-    for (Donations donation : totalDonationHistory.getAllDonations()) {
-        if (donation.getUserName().equalsIgnoreCase(userName)) {
-            userDonation = donation;
-            break;
-        }
-    }
-
-    if (userDonation != null) { //if matching userDonation is found
-        historyTa.setText("Donation History for " + userName + ":\n");
-        for (Double amount : userDonation.getDonationAmounts()) {
-            historyTa.append("€" + amount + "\n");
-        }
-    } else {
-        historyTa.setText("No donation history found for user: " + userName);
-    }
-    }//GEN-LAST:event_searchBtnActionPerformed
-
     private void showBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showBtnActionPerformed
         // TODO add your handling code here:
         //retrieve and display all donation records
         
-        ArrayList<Donations> allDonations = totalDonationHistory.getAllDonations();
+        allDonations = totalDonationHistory.getAllDonations();
         
         if(allDonations.isEmpty()){
             historyTa.setText("No available history");
         }
         else{
+            
             for (Donations tdh : allDonations) {
-                historyTa.append("Name:"+tdh.getUserName()+"\nDOB:"+tdh.getDob()+"\n Amount:"+tdh.getdAmount());
+                historyTa.append("\nName:"+tdh.getName()+"\nDOB:"+tdh.getDob()+"\n Amount:"+tdh.getdAmount());
             }
         }
     }//GEN-LAST:event_showBtnActionPerformed
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        // TODO add your handling code here:
+        if(allDonations.isEmpty()){
+            JOptionPane.showMessageDialog(null,"Sorry, there are no employees in the system");
+        }
+        else{
+            String searchTerm = deleteField.getText();
+            for(int i = 0; i < allDonations.size();i++){
+                Donations d = allDonations.get(i);
+                if(d.getName().equalsIgnoreCase(searchTerm)){
+                    allDonations.remove(d);
+                }
+            }
+        }
+        clearFields();
+        save();
+    }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void deleteFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -680,6 +692,11 @@ public class DonationGUI extends javax.swing.JFrame {
     private javax.swing.JTextField amountTf;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton clearBtn;
+    private javax.swing.JButton deleteBtn;
+    private javax.swing.JTextField deleteField;
+    private javax.swing.JLabel deleteLbl;
+    private javax.swing.JLabel deleteLbl1;
+    private javax.swing.JPanel deleteTf;
     private javax.swing.JLabel dobLbl;
     private javax.swing.JTextField dobTf;
     private javax.swing.JButton donateBtn;
@@ -688,7 +705,6 @@ public class DonationGUI extends javax.swing.JFrame {
     private javax.swing.JLabel historyLbl;
     private javax.swing.JTextArea historyTa;
     private javax.swing.JButton homeBtn;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton loadBtn;
@@ -697,9 +713,6 @@ public class DonationGUI extends javax.swing.JFrame {
     private javax.swing.JButton pollBtn;
     private javax.swing.JButton raffleBtn;
     private javax.swing.JButton saveBtn;
-    private javax.swing.JButton searchBtn;
-    private javax.swing.JLabel searchLbl;
-    private javax.swing.JTextField searchTf;
     private javax.swing.JButton showBtn;
     private javax.swing.JButton totHistBtn;
     private javax.swing.JRadioButton totlHistRb;

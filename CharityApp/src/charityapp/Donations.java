@@ -21,7 +21,7 @@ public class Donations extends Charity {
     //ArrayList used for collection that can grow or shrink in size
     private ArrayList<Double> donationAmounts;
     private double dAmount;
-    //private String name;
+    private String name;
     private String dob;
     private String message;
 
@@ -33,7 +33,7 @@ public class Donations extends Charity {
         super();
         /*super keyword refers to superclass parent objects (https://www.w3schools.com/java/ref_keyword_super.asp)*/
         donationAmounts = new ArrayList<>(); //stores history of donation amounts for this user
-        //name = "";
+        name = "";
         dob = ""; //initializes dob
         message = ""; //initializes message
         dAmount = 0.0; //initializes dAmount
@@ -43,9 +43,10 @@ public class Donations extends Charity {
     
     
     //overloaded constructor
-    public Donations(String userName, String password, double dAmount, String dob, String message) {
-        //this.name = name;
+    public Donations(String userName, String password,String name, double dAmount, String dob, String message) {
         super(userName, password); //call for superclass constructor
+        this.name = name;
+        //this.donationAmounts = donationAmounts;
         this.dob = dob;
         this.message = message;
         this.dAmount = dAmount;
@@ -96,6 +97,15 @@ public class Donations extends Charity {
     }
 
     
+   
+     public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     
     //custom instance method
     //example from EmployeeApp from lecture used:
@@ -109,6 +119,8 @@ public class Donations extends Charity {
     
     //@Override
     public String getDetails() {
-        return "User: " + userName + ", DOB: " + dob + "Message:" + message + "Your Donation Was: €" + dAmount;
+        return "User: " + userName + "Name:" + name +", DOB: " + dob + "Message:" + message + "Your Donation Was: €" + dAmount;
     }
+
+   
 }
