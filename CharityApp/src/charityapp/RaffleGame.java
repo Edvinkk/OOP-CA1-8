@@ -12,25 +12,25 @@ import java.util.ArrayList;
  */
 public class RaffleGame extends Charity{
     //declare data types
-    private int number;
-    private int userNumber;
-    private int entryNum;
-    private boolean result;
-    private ArrayList<RaffleResult> history;
+    private int number;//winning number
+    private int userNumber;//the number entered by user
+    private int entryNum;//range for random numbers
+    private boolean result;//stores the result
+    private ArrayList<RaffleResult> history;//list to store the history of raffle results
     
     //default constructor
     public RaffleGame(){
-        super();
+        super();//call the parent class constructor
         number = 0;
         userNumber = 0;
         entryNum = (int)(Math.random()*20)+1;//Generate numbers between 1-20
         result = false;
-        history = new ArrayList<>();
+        history = new ArrayList<>();//initialize history
     }
 
     //Overloaded Constructor that initialise all variables and the inherited ones as well
     public RaffleGame(String userName, String password, int number, int userNumber, int entryNum, boolean result, ArrayList<RaffleResult> history) {
-        super(userName, password);
+        super(userName, password);//call the parent class constructor
         this.number = number;
         this.userNumber = userNumber;
         this.entryNum = entryNum;
@@ -74,6 +74,8 @@ public class RaffleGame extends Charity{
     //ComputeRaffle method
     public void computeRaffle(){
         //Charity c = new Charity();
+        
+        //If the winning number hasn't been set, generate one
         if(number == 0){
             this.number = (int)(Math.random()*entryNum)+1;
         }
@@ -92,6 +94,7 @@ public class RaffleGame extends Charity{
             myR.setName(userName);
         }*/
         
+        //determine the result of the raffle
         if(userNumber== number){
             result =true; 
             myR.getUserNumber();
