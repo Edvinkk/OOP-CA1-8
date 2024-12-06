@@ -73,7 +73,7 @@ public class RaffleGame extends Charity{
     
     //ComputeRaffle method
     public void computeRaffle(){
-        Charity c = new Charity("admin", "hello");
+        //Charity c = new Charity();
         if(number == 0){
             this.number = (int)(Math.random()*entryNum)+1;
         }
@@ -84,7 +84,6 @@ public class RaffleGame extends Charity{
         myR.setUserNumber(userNumber);//Store the raffle number
         myR.setResult(userNumber == number);//check if it matches with the winning number
         
-
         //Use variable Username from the Charity parent class
         /*if(userName.isEmpty()){
             myR.setName("Damien");
@@ -92,12 +91,6 @@ public class RaffleGame extends Charity{
         else {
             myR.setName(userName);
         }*/
-
-    
-
-        myR.setName(c.getUserName());
-        
-        
         
         if(userNumber== number){
             result =true; 
