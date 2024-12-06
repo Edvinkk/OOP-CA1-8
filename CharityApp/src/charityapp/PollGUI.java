@@ -33,7 +33,7 @@ public class PollGUI extends javax.swing.JFrame {
         load();
     }
 
-    // Method to save votes to file
+    //saves votes to file
     private void save() {
         File f;
         FileOutputStream fStream;
@@ -44,7 +44,7 @@ public class PollGUI extends javax.swing.JFrame {
             fStream = new FileOutputStream(f);
             oStream = new ObjectOutputStream(fStream);
 
-            // Save the vote counts for each poll (In Favour and Against)
+            //Saves the vote counts for each poll 
             oStream.writeObject(inFavourVotes);
             oStream.writeObject(againstVotes);
 
@@ -54,7 +54,7 @@ public class PollGUI extends javax.swing.JFrame {
         }
     }
 
-    // Method to load votes from file
+    //loads votes from fiel
     private void load() {
         File f;
         FileInputStream fStream;
@@ -238,18 +238,18 @@ public class PollGUI extends javax.swing.JFrame {
                         .addGap(66, 66, 66)
                         .addComponent(againstBtn)
                         .addContainerGap(126, Short.MAX_VALUE))
-                    .addGroup(backgroundLayout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(poll1Rb)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(poll2Rb)
-                        .addGap(68, 68, 68)
-                        .addComponent(poll3Rb)
-                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1)
-                        .addGap(27, 27, 27))))
+                        .addGap(27, 27, 27))
+                    .addGroup(backgroundLayout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(poll1Rb)
+                        .addGap(78, 78, 78)
+                        .addComponent(poll2Rb)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(poll3Rb)
+                        .addGap(57, 57, 57))))
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
