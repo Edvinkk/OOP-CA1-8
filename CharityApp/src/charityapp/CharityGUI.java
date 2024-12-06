@@ -4,6 +4,12 @@
  */
 package charityapp;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -14,8 +20,9 @@ public class CharityGUI extends javax.swing.JFrame {
 
     //list to store userss
     private ArrayList<Charity> users;
-    //to store currenly logged in user
-    private Charity currentUser;
+
+    
+    
 
     /**
      * Creates new form CharityGUI
@@ -27,7 +34,87 @@ public class CharityGUI extends javax.swing.JFrame {
         pollBtn.setVisible(false);
 
         //load users from a file
-        users = Charity.loadUsers();
+        users = loadUsers();
+    }
+
+    //save the list of users to a file
+    public static void saveUsers(ArrayList<Charity> users) {
+        File f;
+        FileOutputStream fStream;
+        ObjectOutputStream oStream;
+
+        try {
+            //Create or open a file to store the users
+            f = new File("users.dat");
+            fStream = new FileOutputStream(f);
+            oStream = new ObjectOutputStream(fStream);
+
+            //Serialize and save the list of users to the file
+            oStream.writeObject(users);
+
+            //Close the streams after saving
+            oStream.close();
+        } catch (IOException e) {
+            //Handle any errors during the file saving process
+            System.out.println("Error saving users: " + e.getMessage());
+        }
+    }
+
+    //load the list of users from the file
+    public static ArrayList<Charity> loadUsers() {
+        File f;
+        FileInputStream fStream;
+        ObjectInputStream oStream;
+
+        //Initialize the list for users
+        ArrayList<Charity> users = new ArrayList<>();
+
+        try {
+            //Checks if the file exists before attempting to load data
+            f = new File("users.dat");
+
+            if (f.exists()) {
+                fStream = new FileInputStream(f);
+                oStream = new ObjectInputStream(fStream);
+
+                //Deserialize and load the list of users from the file
+                users = (ArrayList<Charity>) oStream.readObject();
+
+                oStream.close();
+            }
+            //error handling
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error loading users: " + e.getMessage());
+        }
+
+        //Return the list of users, empty if not found
+        return users;
+    }
+
+//check if username already exists
+    public static boolean usernameExists(String username, ArrayList<Charity> users) {
+        //iterates through each Charity object in the users list to check if the username already exists
+        for (Charity user : users) {
+            if (user.getUserName().equals(username)) {
+                //returns true if username does exist
+                return true;
+            }
+        }
+        //returns false if username doesn't exist
+        return false;
+    }
+
+    //validates the login
+    public static boolean validateLogin(String username, String password, ArrayList<Charity> users) {
+        //iterates through each Charity object in the users list to check if the username and password match
+        for (Charity user : users) {
+            if (user.getUserName().equals(username) && user.getPassword().equals(password)) {
+                //returns true if login was successful
+                return true;
+            }
+        }
+        //returns false if login failed
+        return false;
     }
 
     /**
@@ -239,52 +326,25 @@ public class CharityGUI extends javax.swing.JFrame {
         String password = passwordTf.getText();
 
         if (loginRb.isSelected()) {
-            // Login logic
-            if (login(username, password)) {
-                // If login is successful, show the donation, raffle, and poll buttons
+            if (validateLogin(username, password, users)) {
                 donateBtn.setVisible(true);
                 raffleBtn.setVisible(true);
                 pollBtn.setVisible(true);
             } else {
-                // Show an error message
                 javax.swing.JOptionPane.showMessageDialog(this, "Invalid username or password.");
             }
         } else if (registerRb.isSelected()) {
-            // Registration logic
-            if (usernameExists(username)) {
-                // Show an error message if username already exists
+            if (usernameExists(username, users)) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Username already exists.");
             } else {
-                // Register a new user
                 Charity newUser = new Charity(username, password);
-                users.add(newUser);  // Add the new user to the list
-                Charity.saveUsers(users);  // Save the updated list to a file
-
+                users.add(newUser);
+                saveUsers(users);
                 javax.swing.JOptionPane.showMessageDialog(this, "Registration successful!");
             }
         }
     }//GEN-LAST:event_submitBtnActionPerformed
 
-    private boolean login(String username, String password) {
-        // Loop through the users list and check if there's a match for username and password
-        for (Charity user : users) {
-            if (user.getUserName().equals(username) && user.getPassword().equals(password)) {
-                currentUser = user;  // Set the current logged in user
-                return true;  // Login successful
-            }
-        }
-        return false;  // Login failed
-    }
-
-    private boolean usernameExists(String username) {
-        // Check if the username already exists
-        for (Charity user : users) {
-            if (user.getUserName().equals(username)) {
-                return true;  // Username exists
-            }
-        }
-        return false;  // Username does not exist
-    }
 
     /**
      * @param args the command line arguments
