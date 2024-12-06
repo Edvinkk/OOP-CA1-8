@@ -104,50 +104,11 @@ public class Donations extends Charity {
         return "Name: " + name + ", Employee ID: " + id + ", Salary: " + salary;
     }
     */
+    
+    
+    
     //@Override
     public String getDetails() {
         return "User: " + userName + ", DOB: " + dob + "Message:" + message + "Your Donation Was: €" + dAmount;
     }
 }
-
-/*public double getDonationAmount() {
-        return dAmount;
-    }
-
-    public void setDonationAmount(double amount) {
-        this.dAmount = amount;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDob() {
-        return dob;
-    }
-
-    public void setDob(String dob) {
-        this.dob = dob;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }*/
- /*public void addDonation(double amount) {
-        this.dAmount = amount;
-    }*/
-
- /*@Override
-    public String toString() {
-        return "Donation Amount: " + dAmount;
-    }*/
-//}
-

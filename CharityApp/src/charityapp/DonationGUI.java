@@ -37,6 +37,7 @@ public class DonationGUI extends javax.swing.JFrame {
 
     }
 
+    //Default empty fields
     private void clearFields() {
         nameTf.setText(" ");
         dobTf.setText(" ");
@@ -415,6 +416,7 @@ public class DonationGUI extends javax.swing.JFrame {
 
     private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
         // TODO add your handling code here:
+        //Navigation to Home Section
         CharityGUI myGUI = new CharityGUI();
         myGUI.setVisible(true);
         this.dispose();
@@ -434,34 +436,41 @@ public class DonationGUI extends javax.swing.JFrame {
 
     private void donateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_donateBtnActionPerformed
         // TODO add your handling code here:
-        String userName = nameTf.getText().trim();
-        String dob = dobTf.getText().trim();
+        //ensuring the input is clean and ready for use
+        //nameTf.getText() retrieves the text entered by the user in the nameTf text field
+        String userName = nameTf.getText().trim(); //trim() method removes whitespace from both ends of a string, idea to use from( https://www.w3schools.com/java/ref_string_trim.asp )
+        String dob = dobTf.getText().trim(); //trim() prevents accidental white spaces in strings
         String amountText = amountTf.getText().trim();
 
+        //check if any of the input fields are empty.
         if (userName.isEmpty() || dob.isEmpty() || amountText.isEmpty()) {
             historyTa.setText("All fields are required to donate.");
-            return;
+            return; //return statement prevents the statement runing 
         }
 
-        try {
-            double amount = Double.parseDouble(amountText);
-            String message = "Thank you for your generous support!";
-            totalDonationHistory.addDonation(userName, "defaultPassword", amount, dob, message);
+        //validate, converts, and processes the donation amount entered by the use
+        //try-catch block to manage potential errors that may occur when parsing the donation amount
+        try {   //try statement allows to define a block of code to be tested for errors while it is being executed ( https://www.w3schools.com/java/java_try_catch.asp)
+            double amount = Double.parseDouble(amountText); //ensures that entered donation amount is a valid numeric value
+            String message = "Thank you for your generous support!"; //default message for the donor
+            totalDonationHistory.addDonation(userName, "defaultPassword", amount, dob, message); //adds donation details to the total donation history
 
-            historyTa.setText("Thank you for your donation, " + userName + "!");
-        } catch (NumberFormatException ex) {
+            historyTa.setText("Thank you for your donation, " + userName + "!"); //thank you mesage displayed on the text area
+        } catch (NumberFormatException ex) {  //catch statement allows to define a block of code to be executed, if an error occurs in the try block ( https://www.w3schools.com/java/java_try_catch.asp )
             historyTa.setText("Please enter a valid donation amount.");
         }
     }//GEN-LAST:event_donateBtnActionPerformed
 
     private void totHistBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totHistBtnActionPerformed
         // TODO add your handling code here:
+        //retrives the donation history and formats it so it's easy to read for the user
         String totalHistory = totalDonationHistory.displayTotalDonations();
         historyTa.setText(totalHistory);
     }//GEN-LAST:event_totHistBtnActionPerformed
 
     private void raffleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_raffleBtnActionPerformed
         // TODO add your handling code here:
+        //Navigation to the raffle page
         RaffleGUI myGUI = new RaffleGUI();
         myGUI.setVisible(true);
         this.dispose();
@@ -469,6 +478,7 @@ public class DonationGUI extends javax.swing.JFrame {
 
     private void pollBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pollBtnActionPerformed
         // TODO add your handling code here:
+        //Navigation to poll page
         PollGUI myGUI = new PollGUI();
         myGUI.setVisible(true);
         this.dispose();
@@ -476,6 +486,7 @@ public class DonationGUI extends javax.swing.JFrame {
 
     private void donateRbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_donateRbActionPerformed
         // TODO add your handling code here:
+        //Hides buttons that aren't needed for donating
         nameLbl.setVisible(true);
         nameTf.setVisible(true);
         dobLbl.setVisible(true);
@@ -498,6 +509,7 @@ public class DonationGUI extends javax.swing.JFrame {
 
     private void totlHistRbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totlHistRbActionPerformed
         // TODO add your handling code here:
+        //Hides buttons that aren't needed for viewing the history
         nameLbl.setVisible(true);
         nameTf.setVisible(true);
         dobLbl.setVisible(false);
@@ -520,31 +532,36 @@ public class DonationGUI extends javax.swing.JFrame {
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
         // TODO add your handling code here:
+        //calls the method for clearing all text
         clearFields();
     }//GEN-LAST:event_clearBtnActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         // TODO add your handling code here:
-        File f;
+        //save the totalDonationHistory object to a .dat file
+        
+        //file creation and object serialization
+        File f; 
         FileOutputStream fStream;
-        ObjectOutputStream oStream;
+        ObjectOutputStream oStream; 
         
         try{
-            //creat objects for saving to the .dat file
-            f = new File("TotalDonationHistory.dat");
-            fStream = new FileOutputStream(f);
-            oStream = new ObjectOutputStream(fStream);
+            //create objects for saving to the .dat file
+            f = new File("TotalDonationHistory.dat"); //file where data will be saved
+            fStream = new FileOutputStream(f);  //stream for writing raw byte data to the file
+            oStream = new ObjectOutputStream(fStream); //writing Java objects to the file in a serialized format
             
             oStream.writeObject(totalDonationHistory);
-            historyTa.setText("Total donation history saved successfully.");
+            historyTa.setText("Total donation history saved successfully."); //update text area with success message
             
         } catch (IOException e) {
-            historyTa.setText("Error saving total donation history: " + e);
+            historyTa.setText("Error saving total donation history: " + e); //update text area with error message
         }
     }//GEN-LAST:event_saveBtnActionPerformed
 
     private void loadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadBtnActionPerformed
         // TODO add your handling code here:
+       //variables for handling file operations
         File f;
         FileInputStream fStream;
         ObjectInputStream oStream;
@@ -552,24 +569,27 @@ public class DonationGUI extends javax.swing.JFrame {
         
         try{
             f = new File("TotalDonationHistory.dat");
-            fStream = new FileInputStream(f);
-            oStream = new ObjectInputStream(fStream);
+            fStream = new FileInputStream(f); //opens file
+            oStream = new ObjectInputStream(fStream); //deserializes the object stored in the file
             
             totalDonationHistory = (TotalDonationHistory)oStream.readObject();
             
+            //closes the ObjectInputStream
             oStream.close();
             
+            //retrieves the list of all donations
             ArrayList<Donations> allDonations = totalDonationHistory.getAllDonations();
             
             //totalDonationHistory = new TotalDonationHistory();
+            
             for (Donations tdh : allDonations) {
-                historyTa.append("Name:"+tdh.getUserName()+"\nDOB:"+tdh.getDob()+"\n Amount:"+tdh.getdAmount());
+                historyTa.append("Name:"+tdh.getUserName()+"\nDOB:"+tdh.getDob()+"\n Amount:"+tdh.getdAmount()); //adding details to text area
             }
-            historyTa.setText("Total donation history loaded successfully.");
+            historyTa.setText("Total donation history loaded successfully."); //success statement
         } catch (FileNotFoundException e) {
-            historyTa.setText("No donation history file found. Starting fresh.");
+            historyTa.setText("No donation history file found."); //no file error
         } catch (IOException | ClassNotFoundException e) {
-            historyTa.setText("Error loading total donation history: " + e);
+            historyTa.setText("Error loading total donation history: " + e); //error message
         }
     }//GEN-LAST:event_loadBtnActionPerformed
 
@@ -579,26 +599,12 @@ public class DonationGUI extends javax.swing.JFrame {
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
         // TODO add your handling code here:
-        /*String userName = searchTf.getText().trim();
-
-        if (userName.isEmpty()) {
-            historyTa.setText("Please enter a user name to search.");
-            return;
-        }
-
-        Donations donation = totalDonationHistory.getUserName();
-        if (donation != null) {
-            historyTa.setText("Donation History for " + userName + ":\n"
-                    + donation.getDonationAmounts().toString());
-        } else {
-            historyTa.setText("No donation history found for user: " + userName);
-        }*/
-         
-       
+        
+    //getting text from searchTf    
     String userName = searchTf.getText().trim();
 
-    if (userName.isEmpty()) {
-        historyTa.setText("Please enter a valid username.");
+    if (userName.isEmpty()) { //checking if userName is empty
+        historyTa.setText("Please enter a valid username."); //error message
         return;
     }
 
@@ -610,7 +616,7 @@ public class DonationGUI extends javax.swing.JFrame {
         }
     }
 
-    if (userDonation != null) {
+    if (userDonation != null) { //if matching userDonation is found
         historyTa.setText("Donation History for " + userName + ":\n");
         for (Double amount : userDonation.getDonationAmounts()) {
             historyTa.append("€" + amount + "\n");
@@ -622,6 +628,8 @@ public class DonationGUI extends javax.swing.JFrame {
 
     private void showBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showBtnActionPerformed
         // TODO add your handling code here:
+        //retrieve and display all donation records
+        
         ArrayList<Donations> allDonations = totalDonationHistory.getAllDonations();
         
         if(allDonations.isEmpty()){
@@ -634,46 +642,6 @@ public class DonationGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_showBtnActionPerformed
 
-    /* private void setButtonActions() {
-    // Action for "Donate" button
-    //donateBtn.setText("Donate");
-    donateBtn.addActionListener((ActionEvent e) -> {
-        String name1 = nameTf.getText().trim();
-        String dob = dobTf.getText().trim();
-        String amountText = amountTf.getText().trim();
-        if (name1.isEmpty() || dob.isEmpty() || amountText.isEmpty()) {
-            historyTa.setText("All fields are required to donate.");
-            return;
-        }
-        try {
-            double amount = Double.parseDouble(amountText);
-            donation.addDonation(amount);
-            donationHistory.addDonationEntry(amount);
-            totalDonationHistory.addDonation(name1, amount);
-            historyTa.setText("Thank you for your donation, " + name1 + "!");
-        }catch (NumberFormatException ex) {
-            historyTa.setText("Please enter a valid amount.");
-        }
-    });
-
-    // Action for "View Your History" button
-    //histBtn.setText("View Your History");
-    histBtn.addActionListener((ActionEvent e) -> {
-        StringBuilder history = donationHistory.getHistory();
-        if (history.length() == 0) {
-            historyTa.setText("No donation history found.");
-        } else {
-            historyTa.setText(history.toString());
-        }
-    });
-
-    // Action for "View Total History" button
-    //totHistBtn.setText("View Total History");
-    totHistBtn.addActionListener((ActionEvent e) -> {
-        String totalHistory = totalDonationHistory.displayTotalDonations();
-        historyTa.setText(totalHistory);
-    });
-}*/
     /**
      * @param args the command line arguments
      */
