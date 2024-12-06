@@ -24,6 +24,7 @@ public class DonationGUI extends javax.swing.JFrame {
     private final Donations donation;
     //private final DonationHistory donationHistory;
     private TotalDonationHistory totalDonationHistory;
+    private ArrayList<Donations> allDonations;
 
     /**
      * Creates new form DonationGUI
@@ -578,7 +579,7 @@ public class DonationGUI extends javax.swing.JFrame {
             oStream.close();
             
             //retrieves the list of all donations
-            ArrayList<Donations> allDonations = totalDonationHistory.getAllDonations();
+            allDonations = totalDonationHistory.getAllDonations();
             
             //totalDonationHistory = new TotalDonationHistory();
             
@@ -601,43 +602,56 @@ public class DonationGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     //getting text from searchTf    
-    String userName = searchTf.getText().trim();
+    String name = searchTf.getText().trim();
 
-    if (userName.isEmpty()) { //checking if userName is empty
+    if (name.isEmpty()) { //checking if userName is empty
         historyTa.setText("Please enter a valid username."); //error message
-        return;
+        //return;
+    }
+    else if(name != null){
+        String searchTerm = searchTf.getText();
+        //traverses the Array
+        for(Donations tdh : allDonations){
+            if(tdh.getName().equalsIgnoreCase(searchTerm)){
+                historyTa.append("Donation History for " + name + ":\n");
+                
+            }
+        }
+    }
+    else{
+        historyTa.setText("No donation history found for user: " + name);
     }
 
-    Donations userDonation = null;
+    /*Donations userDonation = null;
     for (Donations donation : totalDonationHistory.getAllDonations()) {
-        if (donation.getUserName().equalsIgnoreCase(userName)) {
+        if (donation.getUserName().equalsIgnoreCase(name)) {
             userDonation = donation;
             break;
         }
     }
 
     if (userDonation != null) { //if matching userDonation is found
-        historyTa.setText("Donation History for " + userName + ":\n");
+        historyTa.setText("Donation History for " + name + ":\n");
         for (Double amount : userDonation.getDonationAmounts()) {
             historyTa.append("€" + amount + "\n");
         }
     } else {
-        historyTa.setText("No donation history found for user: " + userName);
-    }
+        historyTa.setText("No donation history found for user: " + name);
+    }*/
     }//GEN-LAST:event_searchBtnActionPerformed
 
     private void showBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showBtnActionPerformed
         // TODO add your handling code here:
         //retrieve and display all donation records
         
-        ArrayList<Donations> allDonations = totalDonationHistory.getAllDonations();
+        allDonations = totalDonationHistory.getAllDonations();
         
         if(allDonations.isEmpty()){
             historyTa.setText("No available history");
         }
         else{
             for (Donations tdh : allDonations) {
-                historyTa.append("Name:"+tdh.getUserName()+"\nDOB:"+tdh.getDob()+"\n Amount:"+tdh.getdAmount());
+                historyTa.append("Name:"+tdh.getName()+"\nDOB:"+tdh.getDob()+"\n Amount:"+tdh.getdAmount());
             }
         }
     }//GEN-LAST:event_showBtnActionPerformed
