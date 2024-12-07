@@ -19,6 +19,7 @@ public class TotalDonationHistory extends Charity {
     
     
     //default constructor
+    // constructor initializes this field with a new and empty ArrayList
     public TotalDonationHistory() {
         allDonations = new ArrayList<>();
     }
@@ -26,9 +27,11 @@ public class TotalDonationHistory extends Charity {
     
 
     // add new user's donation
-    public void addDonation(String name, double amount, String dob, String message) {
+    public void addDonation(String name, double amount, String dob, String message) {  //method declaration, parameters in brackets
         // check if user already exists
-        for (Donations donation : allDonations) {
+        for (Donations donation : allDonations) {  //loops through allDonations list which stores Donations objects for each user
+            
+            //If the user exists: calls addDonation method of the existing Donations object to add the new donation amount to their history
             if (donation.getName().equalsIgnoreCase(name)) {
                 donation.addDonation(amount);  // Update existing user's donation
                 return;
@@ -43,39 +46,34 @@ public class TotalDonationHistory extends Charity {
     
 
     // display all donations from all users
+    //generate and return a formatted string that displays the details of all donations made by all users
     public String displayTotalDonations() {
-        /*if (allDonations.isEmpty()) {
+        if (allDonations.isEmpty()) {  //check if allDonations is empty
             return "No donations have been made.";
         }
 
-        StringBuilder sb = new StringBuilder("Total Donations:\n");
-        for (Donations donation : allDonations) {
-            sb.append(donation.getDetails()).append("\n");
-        }
-        return sb.toString();*/
-        if (allDonations.isEmpty()) {
-            return "No donations have been made.";
-        }
-
-        String result = "Total Donations:\n";
+        String result = "Total Donations:\n";   //string accumulates the details of all donations
         for (Donations donation : allDonations) {
             result += donation.getDetails() + "\n";
         }
-        return result;
+        return result;  //returns final string
 
     }
 
     // calculate the total of all donations
+    //method computes and returns the total sum of all donations made by all users stored in the TotalDonationHistory class
     public double calculatedTotal() {
-        double total = 0;
-        for (Donations donation : allDonations) {
-            for (Double amount : donation.getDonationAmounts()) {
+        double total = 0; //variable initialized as 0 will hold the sum oh all donations
+        for (Donations donation : allDonations) {  //each Donations object represents the donation history of a single user
+            for (Double amount : donation.getDonationAmounts()) { //nested loop
                 total += amount;
             }
         }
-        return total;
+        return total; //returns final sum
     }
 
+    
+    //Getter
     public ArrayList<Donations> getAllDonations() {
         return allDonations;
     }

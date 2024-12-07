@@ -19,7 +19,7 @@ public class Donations extends Charity {
 
     //defined variables
     //ArrayList used for collection that can grow or shrink in size
-    private ArrayList<Double> donationAmounts;
+    private ArrayList<Double> donationAmounts; //stores a collection of donation amounts made by a user
     private double dAmount;
     private String name;
     private String dob;
@@ -29,6 +29,7 @@ public class Donations extends Charity {
     
     
     //default constructor
+    //used for initializing objects
     public Donations() {
         super();
         /*super keyword refers to superclass parent objects (https://www.w3schools.com/java/ref_keyword_super.asp)*/
@@ -61,21 +62,25 @@ public class Donations extends Charity {
     })*/
     //responsible for adding a new donation to the user's donation history and updating the dAmount field
     public void addDonation(double amount) {
-        dAmount = amount;
-        donationAmounts.add(amount);
+        dAmount = amount; //dAmount field stores most recent donation amount
+        donationAmounts.add(amount); // ArrayList that stores all the donations made by the user
     }
 
     
     
     //Getter and Setter Methods
+    
+   //method returns the donationAmounts field
     public ArrayList<Double> getDonationAmounts() {
         return donationAmounts;
     }
-
+    
+    //method returns the value of the dAmount field
     public double getdAmount() {
         return dAmount;
     }
 
+    // allows controlled modification of the private dAmount field
     public void setdAmount(double dAmount) {
         this.dAmount = dAmount;
     }
@@ -116,9 +121,10 @@ public class Donations extends Charity {
     */
     
     
-    
+    //custom instance method
+    //generates formatted string containing details about the user and their most recent donation
     //@Override
-    public String getDetails() {
+    public String getDetails() {   //method returns a String
         return "User: " + userName + "Name:" + name +", DOB: " + dob + "Message:" + message + "Your Donation Was: €" + dAmount;
     }
 
