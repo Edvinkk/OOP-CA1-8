@@ -639,7 +639,7 @@ public class DonationGUI extends javax.swing.JFrame {
         
         //feature that allows to delte records
         if(allDonations.isEmpty()){
-            JOptionPane.showMessageDialog(null,"Sorry, there are no employees in the system"); //message in case there are no records
+            JOptionPane.showMessageDialog(null,"Sorry, there are no records to delete"); //message in case there are no records
         }
         else{
             String searchTerm = deleteField.getText(); //retrieves the text entered by the user in the deleteField input field
