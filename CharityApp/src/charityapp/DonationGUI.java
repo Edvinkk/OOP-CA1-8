@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 
 public class DonationGUI extends javax.swing.JFrame {
 
-    private final Donations donation;
+    private final Donations donation; //final becaues donation variable will always point to the same Donations object
     //private final DonationHistory donationHistory;
     private TotalDonationHistory totalDonationHistory;
     private ArrayList<Donations> allDonations;
@@ -30,6 +30,8 @@ public class DonationGUI extends javax.swing.JFrame {
     /**
      * Creates new form DonationGUI
      */
+    
+    //constructor public DonationGUI() initializes the DonationGUI class
     public DonationGUI() {
         donation = new Donations();
         //donationHistory = new DonationHistory();
@@ -39,7 +41,7 @@ public class DonationGUI extends javax.swing.JFrame {
 
     }
 
-    //resets fields to empty
+    //resets fields to empty when method is called
     private void clearFields() {
         nameTf.setText(" ");
         dobTf.setText(" ");
@@ -619,10 +621,10 @@ public class DonationGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         //retrieve and display all donation records
         
-        allDonations = totalDonationHistory.getAllDonations();
+        allDonations = totalDonationHistory.getAllDonations(); //retrives all donations
         
-        if(allDonations.isEmpty()){
-            historyTa.setText("No available history");
+        if(allDonations.isEmpty()){ //checks if allDonations list is empty
+            historyTa.setText("No available history"); //updates the historyTa text area with the message
         }
         else{
             
@@ -634,11 +636,14 @@ public class DonationGUI extends javax.swing.JFrame {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         // TODO add your handling code here:
+        
+        //feature that allows to delte records
         if(allDonations.isEmpty()){
-            JOptionPane.showMessageDialog(null,"Sorry, there are no employees in the system");
+            JOptionPane.showMessageDialog(null,"Sorry, there are no employees in the system"); //message in case there are no records
         }
         else{
-            String searchTerm = deleteField.getText();
+            String searchTerm = deleteField.getText(); //retrieves the text entered by the user in the deleteField input field
+            //Compares name field of each Donations object to the searchTerm
             for(int i = 0; i < allDonations.size();i++){
                 Donations d = allDonations.get(i);
                 if(d.getName().equalsIgnoreCase(searchTerm)){
@@ -646,8 +651,8 @@ public class DonationGUI extends javax.swing.JFrame {
                 }
             }
         }
-        clearFields();
-        save();
+        clearFields(); //calls clearFields() method
+        save(); //calls save() method
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void deleteFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteFieldActionPerformed
